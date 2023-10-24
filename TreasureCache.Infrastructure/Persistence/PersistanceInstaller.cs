@@ -12,8 +12,7 @@ public static class PersistenceInstaller
         var connectionString = configuration
             .GetConnectionString("DefaultConnection");
         
-        services.AddEntityFrameworkNpgsql()
-            .AddDbContext<ApplicationContext>(opt =>
+        services.AddDbContext<ApplicationContext>(opt =>
             {
                 opt.UseNpgsql(connectionString);
             });
