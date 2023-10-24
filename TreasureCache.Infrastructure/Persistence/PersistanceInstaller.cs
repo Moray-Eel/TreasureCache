@@ -1,10 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TreasureCache.Infrastructure.Authentication.Configuration;
 using TreasureCache.Infrastructure.Persistence.Database;
 
-namespace TreasureCache.Infrastructure.Persistence.Configuration;
+namespace TreasureCache.Infrastructure.Persistence;
 
 public static class PersistenceInstaller
 {

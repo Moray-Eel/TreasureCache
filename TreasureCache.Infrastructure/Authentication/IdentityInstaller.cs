@@ -1,10 +1,9 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TreasureCache.Infrastructure.Authentication.Models;
 using TreasureCache.Infrastructure.Persistence.Database;
 
-namespace TreasureCache.Infrastructure.Authentication.Configuration;
+namespace TreasureCache.Infrastructure.Authentication;
 
 public static class IdentityInstaller
 {
