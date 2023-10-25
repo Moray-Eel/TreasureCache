@@ -1,7 +1,10 @@
+using TreasureCache.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.InstallInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
@@ -24,4 +27,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapRazorPages();
 app.Run();
