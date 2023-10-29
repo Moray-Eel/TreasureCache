@@ -1,16 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  prefix: "tw-",
   corePlugins: {
     preflight: false,
   },
   content: [
     './TreasureCache.Presentation/Pages/**/*.cshtml',
     './TreasureCache.Presentation/Views/**/*.cshtml',
+    "./**/*.razor", "./**/*.cshtml", "./**/*.html"
   ],
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
+    require('tailwindcss-children'),
+  ],
 }
 
