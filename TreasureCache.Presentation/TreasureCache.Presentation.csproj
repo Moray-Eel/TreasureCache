@@ -20,6 +20,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\TreasureCache.Abstractions\TreasureCache.Abstractions.csproj" />
+      <ProjectReference Include="..\TreasureCache.Application\TreasureCache.Application.csproj" />
       <ProjectReference Include="..\TreasureCache.Infrastructure\TreasureCache.Infrastructure.csproj" />
     </ItemGroup>
 

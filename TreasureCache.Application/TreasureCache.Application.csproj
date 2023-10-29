@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TreasureCache.Abstractions\TreasureCache.Abstractions.csproj" />
+    </ItemGroup>
+
 </Project>
