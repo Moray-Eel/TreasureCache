@@ -169,16 +169,6 @@ select{
   outline: 1px auto -webkit-focus-ring-color;
 }
 
-a{
-  --tw-text-opacity: 1;
-  color: rgb(134 239 172 / var(--tw-text-opacity));
-}
-
-a:hover{
-  --tw-text-opacity: 1;
-  color: rgb(96 165 250 / var(--tw-text-opacity));
-}
-
 *, ::before, ::after{
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -1221,4 +1211,6 @@ a:hover{
   }
 }
 
-@tailwindcss/forms
+@tailwindcss/forms;
+
+@tailwindcss/typography;
