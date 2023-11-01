@@ -97,6 +97,27 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            
+            [Display(Name = "Country")]
+            public string Country { get; set; }
+            
+            [Display(Name = "City")]
+            public string City { get; set; }
+            
+            [Display(Name = "Zip Code")]
+            public string ZipCode { get; set; }
+            
+            [Display(Name = "Street")]
+            public string Street { get; set; }
+
+            [Display(Name = "Building Nr")]
+            public string BuildingNumber { get; set; }
+            
+            [Display(Name = "Apartment Nr*")]
+            public string? ApartmentNumber { get; set; }
+            
+            [Display(Name = "Phone Number*")]
+            public string? PhoneNumber { get; set; } 
         }
 
 
