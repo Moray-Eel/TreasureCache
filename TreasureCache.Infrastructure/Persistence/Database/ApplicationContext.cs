@@ -5,7 +5,8 @@ using TreasureCache.Infrastructure.Authentication.Models;
 
 namespace TreasureCache.Infrastructure.Persistence.Database;
 
-public class ApplicationContext : IdentityDbContext<ApplicationUser>
+//IdentityDbContext<ApplicationUser> does not work with cutom role class
+public class ApplicationContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
 {
     public DbSet<DomainUser> DomainUsers { get; set; } = null!;
     public DbSet<Address> Addresses { get; set; } = null!;
