@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using TreasureCache.Core.Entities;
+using TreasureCache.Infrastructure.Authentication.Constants;
 
 namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
 {
@@ -93,23 +95,37 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Required]
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
             
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+            
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+            
+            [Required]
             [Display(Name = "Country")]
             public string Country { get; set; }
             
+            [Required]
             [Display(Name = "City")]
             public string City { get; set; }
             
+            [Required]
             [Display(Name = "Zip Code")]
             public string ZipCode { get; set; }
             
+            [Required]
             [Display(Name = "Street")]
             public string Street { get; set; }
 
+            [Required]
             [Display(Name = "Building Nr")]
             public string BuildingNumber { get; set; }
             
@@ -133,7 +149,15 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser();
+                var user = CreateUser();
+                var domainUser = CreateDomainUser();
+                var address = CreateAddress(Input.Country, Input.City, Input.ZipCode, Input.Street, 
+                    Input.BuildingNumber, Input.ApartmentNumber, Input.PhoneNumber);
+                
+                domainUser = SetNameCredentials(domainUser, Input.FirstName, Input.LastName);
+                domainUser = SetAddress(domainUser, address);
+                
+                user = SetDomainUser(user, domainUser);
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -141,28 +165,37 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    var identityResult = await _userManager.AddToRoleAsync(user, NormalizedRoleNames.BaseUser);
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                    if (identityResult.Succeeded)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        _logger.LogInformation("User created a new account with password.");
+
+                        var userId = await _userManager.GetUserIdAsync(user);
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        var callbackUrl = Url.Page(
+                            "/Account/ConfirmEmail",
+                            pageHandler: null,
+                            values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                            protocol: Request.Scheme);
+
+                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                        if (_userManager.Options.SignIn.RequireConfirmedAccount)
+                        {
+                            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                        }
                     }
-                    else
+                    foreach (var error in identityResult.Errors)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
                 foreach (var error in result.Errors)
@@ -175,16 +208,16 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
@@ -196,6 +229,42 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
             return (IUserEmailStore<ApplicationUser>)_userStore;
+        }
+
+        private DomainUser CreateDomainUser()
+            => Activator.CreateInstance<DomainUser>();
+        
+        private DomainUser SetNameCredentials(DomainUser user, string firstName, string lastName)
+        {
+            user.FirstName = firstName;
+            user.LastName = lastName;
+
+            return user;
+        }
+        
+        private DomainUser SetAddress(DomainUser user, Address address)
+        {
+            user.Address = address;
+            return user;
+        }
+        
+        private Address CreateAddress(string country, string city, string zipcode, string street, string buildingNumber, string? apartmentNumber, string? phoneNumber)
+        {
+            return new Address
+            {
+                City = city,
+                Country = country,
+                Street = street,
+                ZipCode = zipcode,
+                ApartmentNumber = apartmentNumber,
+                BuildingNumber = buildingNumber
+            };
+        }
+
+        private ApplicationUser SetDomainUser(ApplicationUser user, DomainUser dUser)
+        {
+            user.User = dUser;
+            return user;
         }
     }
 }

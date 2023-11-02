@@ -8,6 +8,7 @@ public class CurrencyEntityBuilder : IEntityTypeConfiguration<Currency>
 {
     public void Configure(EntityTypeBuilder<Currency> currency)
     {
-        currency.Property(c => c.Rate).HasColumnType("numeric(10, 2)");
+        currency.Property(c => c.Rate).HasColumnType("numeric(10, 2)"); 
+        currency.Property(b => b.Id).HasIdentityOptions(startValue: 10);
     }
 }

@@ -6,8 +6,9 @@ namespace TreasureCache.Infrastructure.Persistence.Configuration;
 
 public class ProductEntityBuilder : IEntityTypeConfiguration<Product>
 {
-    public void Configure(EntityTypeBuilder<Product> currency)
+    public void Configure(EntityTypeBuilder<Product> product)
     {
-        currency.Property(c => c.BasePrice).HasColumnType("numeric(10, 2)");
+        product.Property(c => c.BasePrice).HasColumnType("numeric(10, 2)");
+        product.Property(b => b.Id).HasIdentityOptions(startValue: 100);
     }
 }
