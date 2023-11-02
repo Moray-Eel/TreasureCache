@@ -10,9 +10,8 @@ public class Product
     public int Count { get; set; }
     public int Discount { get; set; }
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
-    public string SmallImagePath { get; set; } = null!;
-    public string LargeImagePath { get; set; } = null!;
-    public string? UserManualPath { get; set; }
+    public int ProductFilesId { get; set; }
+    public ProductFiles ProductFiles { get; set; } = null!;
     public int CategoryId { get; set; }
     public Category Category { get; set; } = null!;
 }

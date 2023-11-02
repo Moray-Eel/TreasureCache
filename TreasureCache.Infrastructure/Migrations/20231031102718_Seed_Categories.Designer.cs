@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TreasureCache.Infrastructure.Persistence.Database;
@@ -11,9 +12,11 @@ using TreasureCache.Infrastructure.Persistence.Database;
 namespace TreasureCache.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231031102718_Seed_Categories")]
+    partial class Seed_Categories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -400,18 +403,24 @@ namespace TreasureCache.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("LargeImagePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("ProductFilesId")
-                        .HasColumnType("integer");
+                    b.Property<string>("SmallImagePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserManualPath")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("ProductFilesId");
 
                     b.ToTable("Products");
                 });
@@ -428,14 +437,20 @@ namespace TreasureCache.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("SmallImagePath")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("UserManualPath")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductFiles");
                 });
@@ -633,15 +648,18 @@ namespace TreasureCache.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TreasureCache.Core.Entities.ProductFiles", "ProductFiles")
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("TreasureCache.Core.Entities.ProductFiles", b =>
+                {
+                    b.HasOne("TreasureCache.Core.Entities.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductFilesId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
-
-                    b.Navigation("ProductFiles");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("TreasureCache.Infrastructure.Authentication.Models.ApplicationUser", b =>

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TreasureCache.Infrastructure.Persistence.Database;
@@ -11,9 +12,11 @@ using TreasureCache.Infrastructure.Persistence.Database;
 namespace TreasureCache.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231102085103_Modify_Product_Entity")]
+    partial class Modify_Product_Entity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -400,12 +403,23 @@ namespace TreasureCache.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("LargeImagePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("ProductFilesId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("SmallImagePath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserManualPath")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
