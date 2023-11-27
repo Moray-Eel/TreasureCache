@@ -6,7 +6,8 @@ module.exports = {
   content: [
     './TreasureCache.Presentation/Pages/**/*.cshtml',
     './TreasureCache.Presentation/Views/**/*.cshtml',
-    "./**/*.razor", "./**/*.cshtml", "./**/*.html"
+    "./**/*.razor", "./**/*.cshtml", "./**/*.html",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     extend: {
@@ -56,6 +57,7 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
     require('tailwindcss-children'),
+    require('flowbite/plugin'),
   ],
 }
 

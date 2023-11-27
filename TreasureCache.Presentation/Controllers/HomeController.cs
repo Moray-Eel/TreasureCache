@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using TreasureCache.Presentation.Models;
+using TreasureCache.Presentation.ViewModels.Error;
 
 namespace TreasureCache.Presentation.Controllers;
 

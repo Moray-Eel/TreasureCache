@@ -1,11 +1,21 @@
 using TreasureCache.Infrastructure;
 using Tailwind;
+using TreasureCache.Abstractions.Mediator.Extensions;
+using TreasureCache.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.InstallInfrastructure(builder.Configuration);
+builder.Services.AddMediator(cfg =>
+{
+    cfg.RegisterFromAssembliesContainingMarkers(new[]
+    {
+        typeof(IInfrastructureMarker),
+        typeof(IApplicationMarker)
+    });
+});
 
 var app = builder.Build();
 
@@ -24,7 +34,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+IFormFile image;
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
