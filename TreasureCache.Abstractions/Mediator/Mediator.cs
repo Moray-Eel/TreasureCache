@@ -21,7 +21,7 @@ public class Mediator : IMediator
         var service = _serviceProvider.GetRequiredService(handlerType) as dynamic 
                       ?? throw new ArgumentNullException($"No handler found for {handlerType.Name}");
 
-        return await service.HandleAsync((dynamic)command);
+        return await service.HandleAsync((dynamic)command, new CancellationToken());
     }
 
     public async Task SendAsync(ICommand command)
@@ -29,14 +29,14 @@ public class Mediator : IMediator
         var handlerType = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
         var service = GetRegisteredHandler(handlerType);
 
-        await service.HandleAsync((dynamic)command);
+        await service.HandleAsync((dynamic)command, new CancellationToken());
     }
 
     public async Task<TResponse> SendAsync<TResponse>(IQuery<TResponse> query)
     {
         var handlerType = typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TResponse));
         var service = GetRegisteredHandler(handlerType);
-        return await service.HandleAsync((dynamic)query);
+        return await service.HandleAsync((dynamic)query, new CancellationToken());
     }
 
     public async Task SendAsync(IQuery query)
@@ -44,7 +44,7 @@ public class Mediator : IMediator
         var handlerType = typeof(IQueryHandler<>).MakeGenericType(query.GetType());
         var service = GetRegisteredHandler(handlerType);
 
-        await service.HandleAsync((dynamic)query);
+        await service.HandleAsync((dynamic)query, new CancellationToken());
     }
 
     private dynamic GetRegisteredHandler(Type handlerType) => 

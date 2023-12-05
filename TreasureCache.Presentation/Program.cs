@@ -1,11 +1,24 @@
 using TreasureCache.Infrastructure;
 using Tailwind;
+using TreasureCache.Abstractions.Mediator.Extensions;
+using TreasureCache.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.InstallInfrastructure(builder.Configuration);
+builder.Services.InstallApplication(builder.Configuration);
+
+builder.Services.AddMediator(cfg =>
+{
+    cfg.RegisterFromAssembliesContainingMarkers(new[]
+    {
+        typeof(IInfrastructureMarker),
+        typeof(IApplicationMarker)
+    });
+});
 
 var app = builder.Build();
 

@@ -1,4 +1,4 @@
-namespace TreasureCache.Presentation.Models;
+namespace TreasureCache.Presentation.ViewModels.Error;
 
 public class ErrorViewModel
 {
