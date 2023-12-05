@@ -16,6 +16,7 @@ public static class InfrastructureInstaller
     {
         services.AddPersistence(configuration);
         services.AddIdentity(configuration);
+        
         services.AddTransient<IProductRepository, ProductRepository>();
         
         return services;

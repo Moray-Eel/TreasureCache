@@ -1,0 +1,18 @@
+<script>
+    $(document).ready(() => {
+        @if(TempData["Success"] is not null)
+        {
+            <text>
+                console.log('success');
+                toastr.success("@TempData["Success"]");
+            </text>
+        }
+        else if(TempData["Error"] is not null)
+        {
+            <text>
+                console.log('error');
+                toastr.error("@TempData["Error"]");
+            </text>
+        }
+    });
+</script>

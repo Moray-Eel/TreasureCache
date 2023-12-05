@@ -37,6 +37,11 @@ public class ProductsController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CreateViewModel model)
     {
-        return View(model);
+        var command = await model.Request.AsCommand();
+        await _mediator.SendAsync(command);
+        
+        TempData["Success"] = "Product created successfully!";
+        
+        return RedirectToAction("Index", "Home");
     }
 }
