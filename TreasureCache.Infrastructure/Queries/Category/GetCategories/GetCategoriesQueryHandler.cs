@@ -4,7 +4,7 @@ using TreasureCache.Infrastructure.Persistence.Database;
 using TreasureCache.Infrastructure.Queries.Category.Dtos;
 using TreasureCache.Infrastructure.Queries.Category.Mappers;
 
-namespace TreasureCache.Infrastructure.Queries.Category.Handlers;
+namespace TreasureCache.Infrastructure.Queries.Category.GetCategories;
 
 public class GetCategoriesQueryHandler : IQueryHandler<GetCategoriesQuery, List<CategoryDto>>
 {

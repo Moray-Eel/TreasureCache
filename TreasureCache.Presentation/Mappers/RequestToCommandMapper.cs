@@ -2,6 +2,7 @@ using Riok.Mapperly.Abstractions;
 using TreasureCache.Application.Files;
 using TreasureCache.Application.Files.Dtos;
 using TreasureCache.Application.Products.Commands.CreateProductCommand;
+using TreasureCache.Application.Products.Commands.UpdateProductCommand;
 using TreasureCache.Presentation.Requests;
 
 namespace TreasureCache.Presentation.Mappers;
@@ -21,6 +22,12 @@ public static class RequestToCommandMapper
                 smallImage, userManual);
     }
 
+    public static UpdateProductCommand AsCommand(this UpdateProductRequest request)
+    {
+        return new UpdateProductCommand(request.Id, request.Name, request.Description, request.BasePrice, request.Discount, 
+            request.Count, request.IsActive, request.CategoryId);
+    }
+    
     private static async Task<FileDto> ToFileDto(this IFormFile file)
     {
         using var memoryStream = new MemoryStream();

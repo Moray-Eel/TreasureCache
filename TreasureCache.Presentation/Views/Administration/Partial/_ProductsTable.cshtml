@@ -1,0 +1,115 @@
+@using TreasureCache.Core.Entities
+@using System.Xml.Schema
+@model TreasureCache.Presentation.ViewModels.Administration.ProductsPanelViewModel
+
+@{
+    var pageSize = Model.Products.PageSize;
+    var page = Model.Products.Page;
+    var totalCount = Model.Products.TotalCount;
+}
+
+<div id="parent" class=" mt-6">
+    <div  class="relative min-h-[600px]">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3 ">
+                        @nameof(Product.Id)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      
+                        @nameof(Product.Name)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        @nameof(Product.Description)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Base Price
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Is Active
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        @nameof(Product.Count)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        @nameof(Product.Discount)
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Created At
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        CategoryId
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Actions
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var product in Model.Products.Items)
+                {
+                    <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            @product.Id.ToString()
+                        </th>
+                        <td class="px-6 py-4">
+                            @product.Name
+                        </td>
+                        <td class="px-6 py-4">
+                            @(product.Description.AsSpan(0, Math.Min(product.Description.Length, 20)).TrimEnd().ToString())...
+                        </td>
+                        <td class="px-6 py-4">
+                            @product.BasePrice.ToString()
+                        </td>
+                        <td class="px-6 py-4">
+                            @product.IsActive.ToString()
+                        </td>
+                        <td class="px-6 py-4">
+                            @product.Count.ToString()
+                        </td>
+                        <td class="px-6 py-4">
+                            @product.Discount.ToString()%
+                        </td>
+                        <td class="px-6 py-4">
+                            @product.CreatedAt.ToString()
+                        </td>
+                        <td class="px-6 py-4">
+                            @product.Category.Id.ToString()
+                        </td>
+                        <td class="px-6 py-4 ">
+                            <button hx-get="ProductModal" hx-vals='{"Id" : "@product.Id.ToString()"}' hx-swap="innerHtml" hx-target="#t-container" type="button" class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 my-auto">Edit</button>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        <div id="t-container">
+            
+        </div>
+    </div>
+    <div class="flex flex-col items-center mt-8">
+        <!-- Help text -->
+        <span class="text-sm text-gray-700 dark:text-gray-400">
+            Showing <span class="font-semibold text-gray-900 dark:text-white">@((page*pageSize-9).ToString())</span> to <span class="font-semibold text-gray-900 dark:text-white">@(System.Math.Min((page*pageSize), totalCount).ToString())</span> of <span class="font-semibold text-gray-900 dark:text-white">@(totalCount.ToString())</span> Entries
+        </span>
+        <!-- Buttons -->
+        <div class="inline-flex mt-2 xs:mt-0">
+            @if (Model.Products.HasPreviousPage)
+            {
+                <button hx-get="ProductsPanel" hx-swap="outerHTML" hx-target="#parent" hx-vals='{"page" : "@((page - 1).ToString())", "pageSize" : "@(pageSize.ToString())"}' class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    Prev
+                </button>
+            }
+            @if (Model.Products.HasNextPage)
+            {
+                <button hx-get="ProductsPanel" hx-swap="outerHTML" hx-target="#parent" hx-vals='{"page" : "@((page + 1).ToString())", "pageSize" : "@(pageSize.ToString())"}' class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    Next
+                </button>
+            }
+        </div>
+    </div>
+</div>
+

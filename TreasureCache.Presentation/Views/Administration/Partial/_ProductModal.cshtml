@@ -1,0 +1,112 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model TreasureCache.Presentation.ViewModels.Administration.ProductModalViewModel;
+
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-1 w-full max-w-2xl h-full md:h-auto bg-gradient-to-br bg-gradient-to-br from-green-400 to-blue-600 rounded-lg">
+    <!-- Modal content -->
+    <div class="relative p-4 bg-white shadow dark:bg-gray-800 sm:p-5">
+        <!-- Modal header -->
+        <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                Update Product
+            </h3>
+            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="updateProductModal">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+        </div>
+        <!-- Modal body -->
+         <form id="xd" asp-controller="Products" asp-action="Update" enctype="multipart/form-data">
+             <div class="grid gap-4 sm:grid-cols-4 sm:gap-6">
+                 <input asp-for="Request.Id" hidden />
+                 <div class="sm:col-span-2 sm:row-span-1">
+                     <label asp-for="Request.Name" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Name</label>
+                     <input asp-for="Request.Name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required>
+                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                         <span asp-validation-for="Request.Name" role="alert"></span>
+                     </p>
+                 </div>
+                 <div class="sm:col-span-2 sm:row-span-2 flex flex-col">
+                     <label asp-for="Request.Description" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Description</label>
+                     <textarea asp-for="Request.Description"  class="grow block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Your description here" required></textarea>
+                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                         <span asp-validation-for="Request.Description" role="alert"></span>
+                     </p>
+                 </div>
+                 <div class="sm:col-span-2 sm:row-span-1">
+                     <label asp-for="Request.CategoryId" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Category</label>
+                     <select asp-for="Request.CategoryId" asp-items="@Model.Categories" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mb-0" required>
+                     </select>
+                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                         <span asp-validation-for="Request.CategoryId" role="alert"></span>
+                     </p>
+                 </div>
+                 <div class="sm:col-span-2">
+                     <label asp-for="Request.BasePrice" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Price</label>
+                     <input asp-for="Request.BasePrice" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="ex. 19,99" required>
+                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                         <span asp-validation-for="Request.BasePrice" role="alert"></span>
+                     </p>
+                 </div>
+                 <div class="sm:col-span-2">
+                     <label asp-for="Request.Count" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Choose quantity:</label>
+                     <div class="relative flex items-center max-w-[12rem]">
+                         <button type="button" id="decrement-button" data-input-counter-decrement="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                             <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                             </svg>
+                         </button>
+                         <input asp-for="Request.Count" id="quantity-input" data-input-counter data-input-counter-min="1" data-input-counter-max="50" aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="999" value="5" required>
+                         <button type="button" id="increment-button" data-input-counter-increment="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                             <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                             </svg>
+                         </button>
+                     </div>
+                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                         <span asp-validation-for="Request.Count" role="alert"></span>
+                     </p>
+                 </div>
+                 @*<div class="sm:col-span-2">
+                        <label asp-for="Request.LargeImage" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Icon image</label>
+                        <input asp-for="Request.LargeImage" accept="image/jpeg, image/png" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPG (MAX. 400x400px).</p>
+                        <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                            <span asp-validation-for="Request.LargeImage" role="alert"></span>
+                        </p>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label asp-for="Request.SmallImage" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Banner image</label>
+                        <input asp-for="Request.SmallImage" accept="image/jpeg, image/png" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">SVG, PNG, JPG or GIF (MAX. 500x1600x).</p>
+                        <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                            <span asp-validation-for="Request.SmallImage" role="alert"></span>
+                        </p>
+                    </div>
+                    <div class="sm:col-span-4">
+                        <label asp-for="Request.UserManual" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">User manual</label>
+                        <input asp-for="Request.UserManual" accept="application/pdf" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">PDF, DOCX</p>
+                        <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                            <span asp-validation-for="Request.UserManual" role="alert"></span>
+                        </p>
+                    </div>*@
+                 <div class="sm:col-span-4">
+                     <input asp-for="Request.IsActive" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                     <label asp-for="Request.IsActive" class="ms-2 text-lg font-sm text-gray-900 dark:text-gray-300">Make active</label>
+                 </div>
+                 <div class="col-start-2 col-span-2 flex place-content-evenly">
+                     <button type="submit" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-sm text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                         <span class="text-lg  relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                             Update
+                         </span>
+                     </button>
+                     <button asp-controller="Products" asp-action="Delete" asp-route-id="@Model.Request.Id" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-sm text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                         <span class="text-lg  relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                             Delete
+                         </span>
+                     </button>
+                 </div>
+             </div>
+            </form>
+    </div>
+</div>

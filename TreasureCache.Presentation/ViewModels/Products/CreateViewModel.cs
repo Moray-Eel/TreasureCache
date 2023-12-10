@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using TreasureCache.Core.Entities;
-using TreasureCache.Infrastructure.Queries.Category.Dtos;
 using TreasureCache.Presentation.Requests;
 
-namespace TreasureCache.Presentation.ViewModels.Product;
+namespace TreasureCache.Presentation.ViewModels.Products;
 
 public class CreateViewModel
 {
