@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TreasureCache.Core.Entities;
@@ -26,7 +27,57 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        
         builder.ApplyConfigurationsFromAssembly(typeof(IInfrastructureMarker).Assembly);
+        SeedAdmin(builder);
+    }
+
+    private void SeedAdmin(ModelBuilder builder)
+    {
+        var address = new Address()
+        {
+            Id = 1000,
+            City = "admin",
+            Country = "admin",
+            Street = "admin",
+            ApartmentNumber = "admin",
+            BuildingNumber = "admin",
+            ZipCode = "admin",
+        };
+        
+        var domainUser = new DomainUser
+        {
+            Id = Guid.NewGuid(),
+            FirstName = "admin",
+            LastName = "admin",
+            PersonalDiscount = 0,
+            SignedForNewsletter = false,
+            AddressId = address.Id, 
+        };
+        
+        var admin = new ApplicationUser
+        {
+            Id = Guid.NewGuid().ToString(),
+            UserName = "admin@admin.com",
+            NormalizedUserName = "ADMIN@ADMIN.COM",
+            Email = "admin@admin.com",
+            NormalizedEmail = "ADMIN@ADMIN.COM",
+            LockoutEnabled = false,
+            UserId = domainUser.Id,
+            EmailConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString(),
+            ConcurrencyStamp = Guid.NewGuid().ToString(),
+        };
+        
+        PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();  
+        admin.PasswordHash = passwordHasher.HashPassword(admin, "Admin123..");
+        
+        builder.Entity<Address>().HasData(address);
+        builder.Entity<DomainUser>().HasData(domainUser);
+        builder.Entity<ApplicationUser>().HasData(admin);
+        builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>()
+        {
+            RoleId = 1.ToString(),
+            UserId = admin.Id
+        });
     }
 }

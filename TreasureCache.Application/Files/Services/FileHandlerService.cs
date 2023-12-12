@@ -17,7 +17,7 @@ public class FileHandlerService : IFileHandlerService
     
     public async Task<(string, string, string?)> Handle(FileDto smallImage, FileDto largeImage, FileDto? userManual)
     {
-        smallImage = await _imageProcessor.Resize(smallImage, 200, 200);
+        smallImage = await _imageProcessor.Resize(smallImage, 300, 250);
         largeImage = await _imageProcessor.Resize(largeImage, 800, 400);
         
         var smallImagePath = await _fileStorageService.GetPathAndWrite(smallImage);

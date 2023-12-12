@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TreasureCache.Abstractions.Mediator.Interfaces;
@@ -11,6 +12,7 @@ using TreasureCache.Presentation.ViewModels.Products;
 
 namespace TreasureCache.Presentation.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class ProductsController : Controller
 {
     private readonly IMediator _mediator;

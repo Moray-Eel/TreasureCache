@@ -1,7 +1,9 @@
 using Htmx;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TreasureCache.Abstractions.Mediator.Interfaces;
+using TreasureCache.Infrastructure.Authentication.Constants;
 using TreasureCache.Infrastructure.Queries.Product;
 using TreasureCache.Infrastructure.Queries.Product.Dtos;
 using TreasureCache.Infrastructure.Queries.Product.GetProductModal;
@@ -11,6 +13,7 @@ using TreasureCache.Presentation.ViewModels.Administration;
 
 namespace TreasureCache.Presentation.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class AdministrationController : Controller
 {
 
