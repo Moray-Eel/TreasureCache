@@ -27,7 +27,7 @@ public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
             Description = command.Description,
             IsActive = command.IsActive,
             BasePrice = command.Price,
-            Count = command.Count,
+            Quantity = command.Count,
             Discount = command.Discount,
             CreatedAt = DateTimeOffset.UtcNow,
             ProductFiles = new ProductFiles()

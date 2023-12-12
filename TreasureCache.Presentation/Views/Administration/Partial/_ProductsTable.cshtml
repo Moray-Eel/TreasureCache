@@ -8,8 +8,8 @@
     var totalCount = Model.Products.TotalCount;
 }
 
-<div id="parent" class=" mt-6">
-    <div  class="relative min-h-[600px]">
+<div id="parent" class="mt-6">
+    <div class=" relative min-h-[40rem]">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -18,7 +18,7 @@
                         @nameof(Product.Id)
                     </th>
                     <th scope="col" class="px-6 py-3">
-                      
+
                         @nameof(Product.Name)
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -31,7 +31,7 @@
                         Is Active
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        @nameof(Product.Count)
+                        @nameof(Product.Quantity)
                     </th>
                     <th scope="col" class="px-6 py-3">
                         @nameof(Product.Discount)
@@ -43,7 +43,6 @@
                         CategoryId
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Actions
                     </th>
                 </tr>
                 </thead>
@@ -51,34 +50,34 @@
                 @foreach (var product in Model.Products.Items)
                 {
                     <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             @product.Id.ToString()
                         </th>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-2">
                             @product.Name
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-2">
                             @(product.Description.AsSpan(0, Math.Min(product.Description.Length, 20)).TrimEnd().ToString())...
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-2">
                             @product.BasePrice.ToString()
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-2">
                             @product.IsActive.ToString()
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-2">
                             @product.Count.ToString()
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-2">
                             @product.Discount.ToString()%
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-2">
                             @product.CreatedAt.ToString()
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-2">
                             @product.Category.Id.ToString()
                         </td>
-                        <td class="px-6 py-4 ">
+                        <td class="px-6 py-2 ">
                             <button hx-get="ProductModal" hx-vals='{"Id" : "@product.Id.ToString()"}' hx-swap="innerHtml" hx-target="#t-container" type="button" class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 my-auto">Edit</button>
                         </td>
                     </tr>
@@ -87,13 +86,13 @@
             </table>
         </div>
         <div id="t-container">
-            
+
         </div>
     </div>
     <div class="flex flex-col items-center mt-8">
         <!-- Help text -->
         <span class="text-sm text-gray-700 dark:text-gray-400">
-            Showing <span class="font-semibold text-gray-900 dark:text-white">@((page*pageSize-9).ToString())</span> to <span class="font-semibold text-gray-900 dark:text-white">@(System.Math.Min((page*pageSize), totalCount).ToString())</span> of <span class="font-semibold text-gray-900 dark:text-white">@(totalCount.ToString())</span> Entries
+            Showing <span class="font-semibold text-gray-900 dark:text-white">@((page * pageSize - 9).ToString())</span> to <span class="font-semibold text-gray-900 dark:text-white">@(System.Math.Min((page * pageSize), totalCount).ToString())</span> of <span class="font-semibold text-gray-900 dark:text-white">@(totalCount.ToString())</span> Entries
         </span>
         <!-- Buttons -->
         <div class="inline-flex mt-2 xs:mt-0">

@@ -29,14 +29,14 @@
         <header>
             <nav class="bg-white border-gray-200 dark:bg-gray-900">
                 <div
-                    class=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+                    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4"
                 >
                     <a
                         class="flex items-center dark:text-white"
                         asp-controller="Home"
                         asp-action="Index"
                     >
-                        TreasureCache.Presentation
+                        <img src="~/assets/logo.png" class="w-96" alt="logo"/>
                     </a>
                     <button
                         data-collapse-toggle="navbar-default"
@@ -92,32 +92,20 @@
                                 </a>
                             </li>
                             <partial name="_loginPartial" />
-                            <partial name="_ProductControlPanel"/>
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
 
-        <div class="h-full w-10/12 mx-auto">
-            <main role="main">@RenderBody()</main>
-        </div>
+        <main class="max-w-screen-xl mx-auto grow flex flex-col py-8" role="main">@RenderBody()</main>
 
-        <footer class="bg-white shadow dark:bg-gray-900 mt-auto">
+        <footer class="bg-white shadow dark:bg-gray-900">
             <div
-                class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between"
+                class="w-full mx-auto max-w-screen-xl p-8 md:flex md:items-center md:justify-between "
             >
-                <span
-                    class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-                >
-                    © 2023
-                    <a href="https://flowbite.com/" class="hover:underline">
-                        Flowbite™
-                    </a>
-                    . All Rights Reserved.
-                </span>
                 <ul
-                    class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0"
+                    class="flex mx-auto gap-8 text-sm font-medium text-gray-500 dark:text-gray-100 sm:mt-0"
                 >
                     <li>
                         <a href="#" class="mr-4 hover:underline md:mr-6">

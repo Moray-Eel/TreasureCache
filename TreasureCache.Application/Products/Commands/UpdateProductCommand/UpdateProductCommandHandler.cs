@@ -26,7 +26,7 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand>
         product.Description = command.Description;
         product.IsActive = command.IsActive;
         product.BasePrice = command.Price;
-        product.Count = command.Count;
+        product.Quantity = command.Count;
         product.Discount = command.Discount;
         product.CategoryId = command.CategoryId;
         

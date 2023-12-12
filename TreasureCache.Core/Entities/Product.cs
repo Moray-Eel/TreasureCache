@@ -7,7 +7,7 @@ public class Product
     public string Description { get; set; } = null!;
     public bool IsActive { get; set; }
     public decimal BasePrice { get; set; }
-    public int Count { get; set; }
+    public int Quantity { get; set; }
     public int Discount { get; set; }
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
     public int ProductFilesId { get; set; }

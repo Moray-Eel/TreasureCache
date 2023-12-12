@@ -1,3 +1,4 @@
-﻿@{ ViewData["Title"] = "Home Page"; }
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model TreasureCache.Presentation.ViewModels.Home.ProductCardsViewModel
 
-<div class="">dsfffss</div>
+<partial name="Partial/_ProductCards" model="@Model"/>

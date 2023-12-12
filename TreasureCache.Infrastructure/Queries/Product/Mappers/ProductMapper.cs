@@ -14,7 +14,7 @@ public static  class ProductMapper
             p.Description,
             p.BasePrice,
             p.Discount,
-            p.Count,
+            p.Quantity,
             p.CreatedAt,
             p.IsActive,
             new ProductFilesDto(
@@ -36,7 +36,7 @@ public static  class ProductMapper
             product.Description,
             product.BasePrice,
             product.Discount,
-            product.Count,
+            product.Quantity,
             product.CreatedAt,
             product.IsActive,
             product.CategoryId,
