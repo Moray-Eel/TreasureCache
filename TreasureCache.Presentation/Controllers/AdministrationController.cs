@@ -55,7 +55,7 @@ public class AdministrationController : Controller
         {
             Request = new UpdateUserRequest(
                 response.User.Id,
-                response.Roles.Select(x => x.Id).ToList(),
+                response.UserRoles.Select(x => x.Id).ToList(),
                 response.User.DomainUser.SignedForNewsletter,
                 response.User.DomainUser.PersonalDiscount
                 ),
@@ -63,7 +63,7 @@ public class AdministrationController : Controller
             {
                 Text = r.Name,
                 Value = r.Id.ToString()
-            }).ToList()
+            }).ToList(),
         };
 
         return PartialView("Partial/_UserModal", model);

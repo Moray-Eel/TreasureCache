@@ -19,7 +19,7 @@
                 <input asp-for="Request.Id" hidden />
                 <div class="sm:col-span-2 sm:row-span-1">
                     <label asp-for="Request.SelectedRoles" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Roles</label>
-                    <select asp-for="Request.SelectedRoles" asp-items="@Model.Roles" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mb-0" required>
+                    <select asp-for="Request.SelectedRoles" asp-items="@Model.Roles" multiple="multiple" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mb-0" required>
                     </select>
                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
                         <span asp-validation-for="Request.SelectedRoles" role="alert"></span>
