@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using TreasureCache.Infrastructure.Authentication.Models;
 
 namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
 {

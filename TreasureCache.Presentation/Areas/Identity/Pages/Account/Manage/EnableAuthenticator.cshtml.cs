@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using TreasureCache.Infrastructure.Authentication.Models;
 
 namespace TreasureCache.Presentation.Areas.Identity.Pages.Account.Manage
 {

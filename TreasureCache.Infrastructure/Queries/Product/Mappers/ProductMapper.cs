@@ -4,7 +4,7 @@ using TreasureCache.Infrastructure.Queries.Product.Dtos;
 using Entities = TreasureCache.Core.Entities;
 namespace TreasureCache.Infrastructure.Queries.Product.Mappers;
 
-public static  class ProductMapper
+public static class ProductMapper
 {
     public static IQueryable<ProductWithCategoryDto> ProjectToDto(this IQueryable<Entities.Product> products)
     {

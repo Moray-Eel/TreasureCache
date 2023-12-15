@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using TreasureCache.Core.Entities;
 using TreasureCache.Infrastructure.Authentication.Constants;
+using TreasureCache.Infrastructure.Authentication.Models;
 
 namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
 {

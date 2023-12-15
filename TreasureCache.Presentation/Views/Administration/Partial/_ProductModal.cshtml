@@ -1,5 +1,4 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@using Azure.Core
 @model TreasureCache.Presentation.ViewModels.Administration.ProductModalViewModel;
 
 <div id="updateProductModal" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-1 w-full max-w-2xl h-full md:h-auto bg-gradient-to-br bg-gradient-to-br from-green-400 to-blue-600 rounded-lg">
@@ -67,30 +66,6 @@
                          <span asp-validation-for="Request.Count" role="alert"></span>
                      </p>
                  </div>
-                 @*<div class="sm:col-span-2">
-                        <label asp-for="Request.LargeImage" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Icon image</label>
-                        <input asp-for="Request.LargeImage" accept="image/jpeg, image/png" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPG (MAX. 400x400px).</p>
-                        <p class="mt-2 text-xs text-red-600 dark:text-red-400">
-                            <span asp-validation-for="Request.LargeImage" role="alert"></span>
-                        </p>
-                    </div>
-                    <div class="sm:col-span-2">
-                        <label asp-for="Request.SmallImage" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Banner image</label>
-                        <input asp-for="Request.SmallImage" accept="image/jpeg, image/png" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">SVG, PNG, JPG or GIF (MAX. 500x1600x).</p>
-                        <p class="mt-2 text-xs text-red-600 dark:text-red-400">
-                            <span asp-validation-for="Request.SmallImage" role="alert"></span>
-                        </p>
-                    </div>
-                    <div class="sm:col-span-4">
-                        <label asp-for="Request.UserManual" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">User manual</label>
-                        <input asp-for="Request.UserManual" accept="application/pdf" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">PDF, DOCX</p>
-                        <p class="mt-2 text-xs text-red-600 dark:text-red-400">
-                            <span asp-validation-for="Request.UserManual" role="alert"></span>
-                        </p>
-                    </div>*@
                  <div class="sm:col-span-4">
                      <input asp-for="Request.IsActive" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                      <label asp-for="Request.IsActive" class="ms-2 text-lg font-sm text-gray-900 dark:text-gray-300">Make active</label>
