@@ -1,6 +1,6 @@
 namespace TreasureCache.Abstractions;
 
-public class IAbstractionMarker
+public interface IAbstractionMarker
 {
     
 }

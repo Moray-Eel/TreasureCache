@@ -19,10 +19,11 @@ public class FileStorageService : IFileStorageService
         var rootDirectory = _env.WebRootPath;
         var directory = file.FileType == FileType.Image ? FilePaths.Image : FilePaths.Document;
         
-        var path = Path.Combine(rootDirectory, directory, GenerateSecurePath(file.Extension));
+        var relativePath = Path.Combine(directory, GenerateSecurePath(file.Extension));
+        var path = Path.Combine(rootDirectory, relativePath);
         await File.WriteAllBytesAsync(path, file.ByteContent);
         
-        return path;
+        return relativePath;
     }
     
     private static string GenerateSecurePath(string extension)
