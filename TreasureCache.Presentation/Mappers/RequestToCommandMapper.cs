@@ -24,10 +24,17 @@ public static partial class RequestToCommandMapper
                 smallImage, userManual);
     }
 
-    public static UpdateProductCommand AsCommand(this UpdateProductRequest request)
+    public static async Task<UpdateProductCommand> AsCommand(this UpdateProductRequest request)
     {
+        var largeImage = await request.LargeImage.ToFileDto();
+        var smallImage = await request.SmallImage.ToFileDto();
+        var userManual = request.UserManual is not null 
+            ? await request.UserManual.ToFileDto() 
+            : null;
+        
         return new UpdateProductCommand(request.Id, request.Name, request.Description, request.BasePrice, request.Discount, 
-            request.Count, request.IsActive, request.CategoryId);
+            request.Count, request.IsActive, request.CategoryId, largeImage, 
+            smallImage, userManual);
     }
 
     public static partial UpdateUserCommand AsCommand(this UpdateUserRequest request);

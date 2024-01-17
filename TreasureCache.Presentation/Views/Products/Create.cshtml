@@ -4,7 +4,7 @@
 <section class="mx-auto w-[50rem] dark:bg-gray-900 rounded-[1rem]">
     <div class="px-4 mx-auto max-w-2xl py-8 ">
         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new product</h2>
-        <form id="xd" asp-controller="Products" asp-action="Create" method="Post" enctype="multipart/form-data">
+        <form id="uploadForm" asp-controller="Products" asp-action="Create" method="Post" enctype="multipart/form-data">
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <div class="sm:col-span-2">
                     <label asp-for="Request.Name" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Name</label>
@@ -15,14 +15,14 @@
                 </div>
                 <div class="sm:col-span-2">
                     <label asp-for="Request.Description" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Description</label>
-                    <textarea asp-for="Request.Description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Your description here" required></textarea>
+                    <textarea asp-for="Request.Description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Your description here" required ></textarea>
                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
                         <span asp-validation-for="Request.Description" role="alert"></span>
                     </p>
                 </div>
                 <div>
                     <label asp-for="Request.CategoryId" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Category</label>
-                    <select asp-for="Request.CategoryId" asp-items="@Model.Categories" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                    <select asp-for="Request.CategoryId" asp-items="@Model.Categories" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" >
                     </select>
                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
                         <span asp-validation-for="Request.CategoryId" role="alert"></span>
@@ -43,7 +43,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
                             </svg>
                         </button>
-                        <input asp-for="Request.Count" id="quantity-input" data-input-counter data-input-counter-min="1" data-input-counter-max="50" aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="999" value="5" required>
+                        <input asp-for="Request.Count" id="quantity-input" data-input-counter data-input-counter-min="1" data-input-counter-max="10000" aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="999" value="5" >
                         <button type="button" id="increment-button" data-input-counter-increment="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
                             <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
@@ -59,23 +59,23 @@
                     <input asp-for="Request.SmallImage" accept="image/jpeg, image/png" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPG (MAX. 400x400px).</p>
                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
-                        <span asp-validation-for="Request.SmallImage" role="alert"></span>
+                        <span id="Request_SmallImage_Validation" asp-validation-for="Request.SmallImage" role="alert"></span>
                     </p>
                 </div>
                 <div class="sm:col-span-1">
                     <label asp-for="Request.LargeImage" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Banner image</label>
-                    <input asp-for="Request.LargeImage" accept="image/jpeg, image/png" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
+                    <input asp-for="Request.LargeImage" accept="image/jpeg, image/png" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 required" >
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">SVG, PNG, JPG or GIF (MAX. 500x1600x).</p>
                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
-                        <span asp-validation-for="Request.LargeImage" role="alert"></span>
+                        <span id="Request_LargeImage_Validation" asp-validation-for="Request.LargeImage" role="alert"></span>
                     </p>
                 </div>
                 <div>
                     <label asp-for="Request.UserManual" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">User manual</label>
-                    <input asp-for="Request.UserManual" accept="application/pdf" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                    <input asp-for="Request.UserManual" accept="application/pdf" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 ">
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">PDF, DOCX</p>
                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
-                        <span asp-validation-for="Request.UserManual" role="alert"></span>
+                        <span id="Request_UserManual_Validation" asp-validation-for="Request.UserManual" role="alert"></span>
                     </p>
                 </div>
                 <div class="sm:col-span-2">
@@ -93,3 +93,50 @@
         </form>
     </div>
 </section>
+
+@*@section Scripts {
+    <script>
+    $(document).ready(function () {
+        $('#Request_SmallImage').change(function () {
+           $('#Request_SmallImage_Validation').text('');
+        });
+      
+        $('#uploadForm').submit(function (e) {
+            e.preventDefault(); // Prevent form submission for now
+            
+            const smallImage = $('#Request_SmallImage')[0].files[0];
+            const largeImage = $('#Request_LargeImage')[0].files[0];
+            const userManual = $('#Request_UserManual')[0].files[0];
+            
+            console.log(smallImage);
+            console.log(largeImage);
+            console.log(userManual);
+            
+            const isValid = (imageName, extensions, validationSpanId) => 
+            {
+                const fileExtension = imageName.name.split('.').pop().toLowerCase();
+                if (extensions.indexOf(fileExtension) === -1) {
+                    $(validationSpanId).text('Please provide a file with a valid extension: ' + extensions.join(','));
+                    return false;
+                }
+                return true;
+            }
+             
+            // Flag to track if any file has invalid extension
+            const validations = [];
+            validations.push(isValid(smallImage, ['jpg', 'jpeg', 'png'], '#Request_SmallImage_Validation'));
+            validations.push(isValid(largeImage, ['jpg', 'jpeg', 'png'], '#Request_LargeImage_Validation'));
+        
+            if (userManual) {
+                validations.push(isValid(userManual, ['pdf'], '#Request_UserManual_Validation'));
+            }
+        
+            const allValid = validations.every(validation => validation);
+            
+            if (allValid) {
+                this.submit();
+            }
+        });
+    });
+    </script>
+}*@

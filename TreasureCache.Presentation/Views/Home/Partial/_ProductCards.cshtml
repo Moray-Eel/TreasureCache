@@ -6,7 +6,7 @@
 }
 
 <div id="cards-parent-container">
-    <div class="grid gap-8 grid-cols-4 w-full">
+    <div class="grid gap-8 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full">
         @foreach (var product in Model.Products.Items)
         {
             <div class="flex flex-col w-[300px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -34,7 +34,7 @@
     <div class="flex flex-col items-center mt-8">
         <!-- Help text -->
         <span class="text-sm text-gray-700 dark:text-gray-400">
-            Showing <span class="font-semibold text-gray-900 dark:text-white">@((page * pageSize - 9).ToString())</span> to <span class="font-semibold text-gray-900 dark:text-white">@(System.Math.Min((page * pageSize), totalCount).ToString())</span> of <span class="font-semibold text-gray-900 dark:text-white">@(totalCount.ToString())</span> Entries
+            Showing <span class="font-semibold text-gray-900 dark:text-white">@((page * pageSize - 11).ToString())</span> to <span class="font-semibold text-gray-900 dark:text-white">@(System.Math.Min((page * pageSize), totalCount).ToString())</span> of <span class="font-semibold text-gray-900 dark:text-white">@(totalCount.ToString())</span> Entries
         </span>
         <!-- Buttons -->
         <div class="inline-flex mt-2 xs:mt-0">

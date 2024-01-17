@@ -19,7 +19,8 @@ public class ProductRepository : IProductRepository
     }
 
     public async Task<Product> GetById(int id)
-        => await _context.Products.FirstAsync(p => p.Id == id);
+        => await _context.Products.Include(p => p.ProductFiles).
+            FirstAsync(p => p.Id == id);
     
     public async Task Remove(Product product)
     {

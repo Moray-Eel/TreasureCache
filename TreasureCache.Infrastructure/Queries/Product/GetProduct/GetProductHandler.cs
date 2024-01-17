@@ -1,19 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using TreasureCache.Abstractions.Mediator.Interfaces.Queries.Handlers;
 using TreasureCache.Infrastructure.Persistence.Database;
-using TreasureCache.Infrastructure.Queries.Category.Mappers;
 using TreasureCache.Infrastructure.Queries.Product.Mappers;
 
-namespace TreasureCache.Infrastructure.Queries.Product.GetProductModal;
+namespace TreasureCache.Infrastructure.Queries.Product.GetProduct;
 
-public class GetProductModalHandler : IQueryHandler<GetProductModalQuery, ProductModalResponse>
+public class GetProductHandler : IQueryHandler<GetProductQuery, ProductResponse>
 {
     private readonly ApplicationContext _context;
-    public GetProductModalHandler(ApplicationContext context)
+    public GetProductHandler(ApplicationContext context)
     {
         _context = context;
     }
-    public async Task<ProductModalResponse> HandleAsync(GetProductModalQuery query, CancellationToken cancellationToken = default)
+    public async Task<ProductResponse> HandleAsync(GetProductQuery query, CancellationToken cancellationToken = default)
     {
         var product = await _context
             .Products
@@ -22,10 +21,6 @@ public class GetProductModalHandler : IQueryHandler<GetProductModalQuery, Produc
 
         var productDto = product?.ProjectToDto() ?? throw new NullReferenceException();
         
-        var categories = await _context.Categories
-            .ProjectToDto()
-            .ToListAsync(cancellationToken);
-        
-        return new ProductModalResponse(productDto, categories);
+        return new ProductResponse(productDto);
     }
 }

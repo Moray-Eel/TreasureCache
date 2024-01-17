@@ -6,8 +6,9 @@ using TreasureCache.Abstractions.Mediator.Interfaces;
 using TreasureCache.Infrastructure.Authentication.Constants;
 using TreasureCache.Infrastructure.Queries.Product;
 using TreasureCache.Infrastructure.Queries.Product.Dtos;
-using TreasureCache.Infrastructure.Queries.Product.GetProductModal;
+using TreasureCache.Infrastructure.Queries.Product.GetProduct;
 using TreasureCache.Infrastructure.Queries.Product.GetProductsPanel;
+using TreasureCache.Infrastructure.Queries.Product.GetProductUpdateData;
 using TreasureCache.Infrastructure.Queries.User.GetUserModal;
 using TreasureCache.Infrastructure.Queries.User.GetUsersPanel;
 using TreasureCache.Presentation.Requests;
@@ -85,31 +86,17 @@ public class AdministrationController : Controller
     
     public async Task<IActionResult> ProductModal(int id)
     {
-        var response = await _mediator.SendAsync(new GetProductModalQuery(id));
+        var response = await _mediator.SendAsync(new GetProductQuery(id));
 
         var model = new ProductModalViewModel()
         {
-            Request = new UpdateProductRequest(
-                response.Product.Id, 
-                response.Product.Name,
-                response.Product.Description,
-                response.Product.BasePrice,
-                response.Product.Discount,
-                response.Product.Count,
-                response.Product.IsActive,
-                response.Product.CategoryId,
-                null,
-                null,
-                null,
-                response.Product.ProductFiles.LargeImagePath,
-                response.Product.ProductFiles.SmallImagePath,
-                response.Product.ProductFiles.UserManualPath
-                    ),
-            Categories = response.Categories.Select(c => new SelectListItem
-            {
-                Text = c.Name,
-                Value = c.Id.ToString()
-            }).ToList()
+            Id = response.Product.Id,
+            Name = response.Product.Name,
+            Description = response.Product.Description,
+            BasePrice = response.Product.BasePrice,
+            Discount = response.Product.Discount,
+            Count = response.Product.Count,
+            IsActive = response.Product.IsActive,
         };
 
         return PartialView("Partial/_ProductModal", model);

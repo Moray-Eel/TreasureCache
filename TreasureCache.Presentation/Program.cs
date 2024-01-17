@@ -1,15 +1,21 @@
+using FluentValidation;
 using TreasureCache.Infrastructure;
 using Tailwind;
 using TreasureCache.Abstractions.Mediator.Extensions;
 using TreasureCache.Application;
+using TreasureCache.Presentation.Requests;
+using TreasureCache.Presentation.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
 builder.Services.InstallInfrastructure(builder.Configuration);
 builder.Services.InstallApplication(builder.Configuration);
+builder.Services.AddScoped<IValidator<CreateProductRequest>, CreateProductRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateUserRequest>, UpdateUserRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateProductRequest>, UpdateProductRequestValidator>();
+
 
 builder.Services.AddMediator(cfg =>
 {

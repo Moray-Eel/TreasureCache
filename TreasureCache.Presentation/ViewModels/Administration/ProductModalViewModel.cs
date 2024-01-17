@@ -7,6 +7,11 @@ namespace TreasureCache.Presentation.ViewModels.Administration;
 
 public class ProductModalViewModel
 {
-    public UpdateProductRequest Request { get; set; } = null!;
-    public List<SelectListItem> Categories { get; set; } = null!;
+    public int Id { get; set; }
+    public string Name { get; set; } 
+    public string Description { get; set; } 
+    public decimal BasePrice { get; set; } 
+    public int Discount { get; set; } 
+    public int Count { get; set; } 
+    public bool IsActive { get; set; } 
 }

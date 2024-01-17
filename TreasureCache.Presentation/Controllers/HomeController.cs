@@ -19,7 +19,7 @@ public class HomeController : Controller
         _mediator = mediator;
     }
 
-    public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
+    public async Task<IActionResult> Index(int page = 1, int pageSize = 12)
     {
         var productResponse = await _mediator
             .SendAsync(new GetProductCardsQuery(page, pageSize));
