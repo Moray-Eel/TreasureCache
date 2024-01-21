@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Htmx;
 using Microsoft.AspNetCore.Mvc;
 using TreasureCache.Abstractions.Mediator.Interfaces;
-using TreasureCache.Infrastructure.Queries.Product.GetProductCards;
+using TreasureCache.Infrastructure.Queries.Products.GetProductCards;
 using TreasureCache.Presentation.ViewModels.Error;
 using TreasureCache.Presentation.ViewModels.Home;
 

@@ -1,8 +1,8 @@
 using System.Security.Cryptography;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using TreasureCache.Application.Files.Dtos;
 using TreasureCache.Application.Images.Services.Interfaces;
+using TreasureCache.Application.UserFiles.Dtos;
 
 namespace TreasureCache.Application.Images.Services;
 

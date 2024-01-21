@@ -3,14 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TreasureCache.Abstractions.Mediator.Interfaces;
-using TreasureCache.Infrastructure.Authentication.Constants;
-using TreasureCache.Infrastructure.Queries.Product;
-using TreasureCache.Infrastructure.Queries.Product.Dtos;
-using TreasureCache.Infrastructure.Queries.Product.GetProduct;
-using TreasureCache.Infrastructure.Queries.Product.GetProductsPanel;
-using TreasureCache.Infrastructure.Queries.Product.GetProductUpdateData;
-using TreasureCache.Infrastructure.Queries.User.GetUserModal;
-using TreasureCache.Infrastructure.Queries.User.GetUsersPanel;
+using TreasureCache.Infrastructure.Queries.PriceLists.GetPriceList;
+using TreasureCache.Infrastructure.Queries.Products.GetProductById;
+using TreasureCache.Infrastructure.Queries.Products.GetProductsPanel;
+using TreasureCache.Infrastructure.Queries.Users.GetUserModal;
+using TreasureCache.Infrastructure.Queries.Users.GetUsersPanel;
 using TreasureCache.Presentation.Requests;
 using TreasureCache.Presentation.ViewModels.Administration;
 
@@ -21,6 +18,7 @@ public class AdministrationController : Controller
 {
 
     private readonly IMediator _mediator;
+
     public AdministrationController(IMediator mediator)
     {
         _mediator = mediator;
@@ -86,19 +84,46 @@ public class AdministrationController : Controller
     
     public async Task<IActionResult> ProductModal(int id)
     {
-        var response = await _mediator.SendAsync(new GetProductQuery(id));
+        var response = await _mediator.SendAsync(new GetProductByIdQuery(id));
 
         var model = new ProductModalViewModel()
         {
-            Id = response.Product.Id,
-            Name = response.Product.Name,
-            Description = response.Product.Description,
-            BasePrice = response.Product.BasePrice,
-            Discount = response.Product.Discount,
-            Count = response.Product.Count,
-            IsActive = response.Product.IsActive,
+            Id = response.Id,
+            Name = response.Name,
+            Description = response.Description,
+            BasePrice = response.BasePrice,
+            Discount = response.Discount,
+            Count = response.Count,
+            IsActive = response.IsActive,
         };
-
         return PartialView("Partial/_ProductModal", model);
+    }
+    
+    [HttpGet]
+    public async Task<FileStreamResult> GeneratePriceList(string documentType)
+    {
+        var response = await _mediator
+            .SendAsync(new GetPriceListQuery(documentType));
+        
+        return File(response, DocumentMimeType(documentType), DocumentName(documentType));
+    }
+    
+    private string DocumentMimeType(string documentType)
+    {
+        return documentType switch
+        {
+            "Docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "Excel" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            _ => "application/pdf",
+        };
+    }
+    private string DocumentName(string documentType)
+    {
+        return documentType switch
+        {
+            "Docx" => "priceList.docx",
+            "Excel" => "priceList.xlsx",
+            _ => "priceList.pdf",
+        };
     }
 }

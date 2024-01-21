@@ -6,29 +6,33 @@
 }
 
 <div id="cards-parent-container">
-    <div class="grid gap-8 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full">
+    <div class="grid gap-8 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full text-gray-50">
         @foreach (var product in Model.Products.Items)
         {
-            <div class="flex flex-col w-[300px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img class="rounded-t-lg w-[100%] h-[250px] mx-auto" src="@product.ProductFiles.SmallImagePath" alt="product image"/>
-                </a>
-                <div class="mt-4 px-5 pb-5 grow flex flex-col justify-between">
-                    <a href="#">
+             
+            <div class="flex flex-col w-[300px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <a asp-controller="Products" asp-action="View" asp-route-id="@product.Id" class="flex flex-col grow">
+                    <img class="rounded-t-lg w-[100%] h-[250px] mx-auto" src="/@product.ProductFiles.SmallImagePath" alt="product image"/>
+                    <div class="grow mt-4 px-5 pb-5 flex flex-col justify-between">
                         <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">@product.Name</h5>
-                    </a>
-                    <p class="text-sm font-semibold tracking-tight text-gray-900 dark:text-white overflow-hidden overflow-ellipsis whitespace-nowrap">
-                        @product.Description
-                    </p>
-                    <div class="flex-grow">
-
-                    </div> <!-- This will push the price div to the bottom -->
-                    <div class="mt-4 flex items-center justify-between">
-                        <span class="text-3xl font-bold text-gray-900 dark:text-white">@product.BasePrice</span>
-                        <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buy</a>
+                        <p class="text-sm font-semibold tracking-tight text-gray-900 dark:text-white overflow-hidden overflow-ellipsis whitespace-nowrap">
+                            @product.Description
+                        </p>
+                        <div class="grow"> </div>
+                        <div class="mt-4 flex flex-col">
+                            @if (product.Discount > 0)
+                            {
+                                <span class="text-sm block line-through">@product.BasePrice</span>
+                                <span class="text-2xl block font-semibold">@Math.Round(product.BasePrice * ((1 - ((decimal)product.Discount / 100))), 2)</span>
+                            }
+                            else
+                            {
+                                <span class="text-2xl block font-semibold ">@product.BasePrice</span>
+                            }
+                        </div>
                     </div>
-                </div>
-            </div>
+                    </a>
+             </div>
         }
     </div>
     <div class="flex flex-col items-center mt-8">

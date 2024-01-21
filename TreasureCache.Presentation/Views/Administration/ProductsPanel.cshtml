@@ -1,11 +1,29 @@
-@using TreasureCache.Core.Entities
 @model TreasureCache.Presentation.ViewModels.Administration.ProductsPanelViewModel
 
-<div class=" mt-4">
-    <a  type="button"
-        class="w-[8.5rem] text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-        asp-controller="Products" 
-        asp-action="Create">Create product
-    </a>
+<div class="mt-4">
+    <div class="flex flex-row justify-between">
+        <a type="button"
+           class="text-black bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+           asp-controller="Products"
+           asp-action="Create">Create product
+        </a>
+        
+        <form method="get" asp-controller="Administration" asp-action="GeneratePriceList" class="flex flex-row gap-4">
+            <button 
+                class=" text-black bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                asp-controller="Administration"
+                asp-route-documentType="@Model.DocumentType"
+                asp-action="GeneratePriceList">Generate price list
+            </button>
+            <div>
+                <select asp-for="@Model.DocumentType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="Pdf">PDF</option>
+                    <option value="Excel">XLS</option>
+                    <option value="Docx">DOCX</option>
+                </select>
+            </div>
+        </form>
+        
+    </div>
     <partial name="Partial/_ProductsTable" model="Model"/>
 </div>

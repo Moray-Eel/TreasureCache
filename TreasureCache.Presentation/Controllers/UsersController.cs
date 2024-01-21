@@ -2,7 +2,6 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TreasureCache.Abstractions.Mediator.Interfaces;
-using TreasureCache.Infrastructure.Queries.User.GetUserModal;
 using TreasureCache.Presentation.Mappers;
 using TreasureCache.Presentation.Requests;
 using TreasureCache.Presentation.ViewModels.Administration;

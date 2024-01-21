@@ -1,4 +1,3 @@
-using TreasureCache.Application.Files.Dtos;
 using TreasureCache.Application.Products.Commands.CreateProductCommand;
 
 namespace TreasureCache.Presentation.Requests;

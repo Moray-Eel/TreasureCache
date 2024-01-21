@@ -5,14 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TreasureCache.Abstractions.Mediator.Interfaces;
 using TreasureCache.Application.Products.Commands.DeleteProductCommand;
-using TreasureCache.Application.Products.Commands.UpdateProductCommand;
-using TreasureCache.Infrastructure.Queries.Category;
-using TreasureCache.Infrastructure.Queries.Category.GetCategories;
-using TreasureCache.Infrastructure.Queries.Product.GetProductUpdateData;
+using TreasureCache.Infrastructure.Queries.Categories.GetCategories;
+using TreasureCache.Infrastructure.Queries.Products.GetProductById;
+using TreasureCache.Infrastructure.Queries.Products.GetProductUpdateData;
 using TreasureCache.Presentation.Mappers;
 using TreasureCache.Presentation.Requests;
-using TreasureCache.Presentation.Validators;
-using TreasureCache.Presentation.ViewModels.Administration;
 using TreasureCache.Presentation.ViewModels.Products;
 
 namespace TreasureCache.Presentation.Controllers;
@@ -155,5 +152,20 @@ public class ProductsController : Controller
         
         
         return RedirectToAction("ProductsPanel", "Administration");
+    }
+
+    [AllowAnonymous]
+    public async Task<IActionResult> View(int id)
+    {
+        var response = await _mediator
+            .SendAsync(new GetProductByIdQuery(id));
+
+        var model = new ViewViewModel
+        {
+            ProductDto = response,
+            DiscountPrice = Math.Round(response.BasePrice * ((1 - ((decimal)response.Discount / 100))), 2)
+        };
+        
+        return View(model);
     }
 }

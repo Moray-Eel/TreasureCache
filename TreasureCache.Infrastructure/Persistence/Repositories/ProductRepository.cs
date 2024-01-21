@@ -12,25 +12,28 @@ public class ProductRepository : IProductRepository
     {
         _context = context;
     }
-    public async Task Add(Product product)
+    public async Task Add(Product product, CancellationToken cancellationToken = default)
     {
-        await _context.Products.AddAsync(product);
-        await _context.SaveChangesAsync();
+        await _context.Products
+            .AddAsync(product, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<Product> GetById(int id)
+    public async Task<Product> GetById(int id, CancellationToken cancellationToken = default)
         => await _context.Products.Include(p => p.ProductFiles).
-            FirstAsync(p => p.Id == id);
+            FirstAsync(p => p.Id == id, cancellationToken);
     
-    public async Task Remove(Product product)
+    public async Task Remove(Product product, CancellationToken cancellationToken = default)
     {
-        _context.Products.Remove(product);
-        await _context.SaveChangesAsync();
+        _context.Products
+            .Remove(product);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task Update(Product product)
+    public async Task Update(Product product, CancellationToken cancellationToken = default)
     {
-        _context.Products.Update(product);
-        await _context.SaveChangesAsync();
+        _context.Products
+            .Update(product);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

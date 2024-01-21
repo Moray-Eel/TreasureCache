@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\TreasureCache.Abstractions\TreasureCache.Abstractions.csproj" />
       <ProjectReference Include="..\TreasureCache.Core\TreasureCache.Core.csproj" />
+      <ProjectReference Include="..\TreasureCache.Infrastructure\TreasureCache.Infrastructure.csproj" />
     </ItemGroup>
     
     

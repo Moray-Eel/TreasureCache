@@ -1,6 +1,6 @@
 using TreasureCache.Abstractions.Mediator.Interfaces.Commands;
 using TreasureCache.Abstractions.Mediator.Interfaces.Commands.Handlers;
-using TreasureCache.Application.Files.Services.Interfaces;
+using TreasureCache.Application.UserFiles.Services.Interfaces;
 using TreasureCache.Core.Entities;
 using TreasureCache.Core.Interfaces.Repositories;
 
@@ -21,7 +21,8 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand>
             await _fileHandlerService
                 .Handle(command.SmallImage, command.LargeImage, command.UserManual);
         
-        var product = await _productRepository.GetById(command.Id);
+        var product = await _productRepository
+            .GetById(command.Id, cancellationToken);
         
         product.Name = command.Name;
         product.Description = command.Description;
@@ -34,6 +35,7 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand>
         product.ProductFiles.LargeImagePath = largeImagePath;
         product.ProductFiles.UserManualPath = userManualPath;
         
-        await _productRepository.Update(product);
+        await _productRepository.Update(product, 
+            cancellationToken);
     }
 }

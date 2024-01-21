@@ -3,7 +3,6 @@
 @using TreasureCache.Infrastructure.Authentication.Models
 
 @inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

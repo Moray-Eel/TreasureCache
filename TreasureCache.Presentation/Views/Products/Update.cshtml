@@ -1,9 +1,8 @@
-@using Azure.Core
 @model TreasureCache.Presentation.ViewModels.Products.UpdateViewModel
 
 <section class="mx-auto w-[50rem] dark:bg-gray-900 rounded-[1rem]">
     <div class="px-4 mx-auto max-w-2xl py-8 ">
-        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new product</h2>
+        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Update this product</h2>
         <form id="uploadForm" asp-controller="Products" asp-action="Update" method="Post" enctype="multipart/form-data">
             <input asp-for="Request.Id" hidden />
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">

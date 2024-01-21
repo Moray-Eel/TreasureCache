@@ -1,5 +1,5 @@
 using TreasureCache.Abstractions.Paging;
-using TreasureCache.Infrastructure.Queries.Product.Dtos;
+using TreasureCache.Infrastructure.Queries.Products.Dtos;
 
 namespace TreasureCache.Presentation.ViewModels.Home;
 

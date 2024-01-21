@@ -1,6 +1,6 @@
 namespace TreasureCache.Application;
 
-public class IApplicationMarker
+public interface IApplicationMarker
 {
     
 }

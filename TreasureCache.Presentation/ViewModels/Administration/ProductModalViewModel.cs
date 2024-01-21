@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
-using TreasureCache.Infrastructure.Queries.Category.Dtos;
-using TreasureCache.Infrastructure.Queries.Product.Dtos;
 using TreasureCache.Presentation.Requests;
 
 namespace TreasureCache.Presentation.ViewModels.Administration;

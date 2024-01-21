@@ -29,6 +29,7 @@ public class Mediator : IMediator
         var handlerType = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
         var service = GetRegisteredHandler(handlerType);
 
+        //Cast for dynamic dispatch due to the construction isuses
         await service.HandleAsync((dynamic)command, new CancellationToken());
     }
 

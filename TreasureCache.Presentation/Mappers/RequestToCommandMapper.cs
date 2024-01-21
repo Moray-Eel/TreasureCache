@@ -1,9 +1,9 @@
 using Riok.Mapperly.Abstractions;
-using TreasureCache.Application.Files;
-using TreasureCache.Application.Files.Dtos;
 using TreasureCache.Application.Products.Commands.CreateProductCommand;
 using TreasureCache.Application.Products.Commands.UpdateProductCommand;
-using TreasureCache.Infrastructure.Commands.Users.Commands.UpdateProduct;
+using TreasureCache.Application.UserFiles;
+using TreasureCache.Application.UserFiles.Dtos;
+using TreasureCache.Infrastructure.Commands.Users.Commands.UpdateUser;
 using TreasureCache.Presentation.Requests;
 
 namespace TreasureCache.Presentation.Mappers;

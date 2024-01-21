@@ -87,6 +87,9 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (_signInManager.IsSignedIn(HttpContext.User))
+                RedirectToAction("Index", "Home");
+            
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);

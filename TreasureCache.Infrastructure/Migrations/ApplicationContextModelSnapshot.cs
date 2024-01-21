@@ -113,7 +113,7 @@ namespace TreasureCache.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "5a38700b-af56-43b3-9673-1cec6ca9d0bc",
+                            UserId = "216c1a70-31f1-4417-8b67-e7653dc94033",
                             RoleId = "1"
                         });
                 });
@@ -347,7 +347,7 @@ namespace TreasureCache.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a923238c-1b83-41e7-b00f-66edfb33d2dd"),
+                            Id = new Guid("87bc7717-f196-4d1f-9fbd-628fd7ba5b2d"),
                             AddressId = 1000,
                             FirstName = "admin",
                             LastName = "admin",
@@ -383,6 +383,35 @@ namespace TreasureCache.Infrastructure.Migrations
                     b.HasIndex("BuyerId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("TreasureCache.Core.Entities.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("AggregatePrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("TreasureCache.Core.Entities.Product", b =>
@@ -554,19 +583,19 @@ namespace TreasureCache.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5a38700b-af56-43b3-9673-1cec6ca9d0bc",
+                            Id = "216c1a70-31f1-4417-8b67-e7653dc94033",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "43299b97-45c8-419a-a429-2a917d7ff3c1",
+                            ConcurrencyStamp = "7ae7ac17-2172-422f-84c4-51af673793fc",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBB2Ux8tfGe6SLXYNBlAvnfK47SWbYelYiym3VP7ljQWGwMeBVvvqT9FxhUQ7UJGlg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKMdgvio58JeRIvj9JD/dXvCquTCnAvUvHK1HUP2wh4ZNAMZVbrpnTlto+gsnhFQvA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "900ebf70-ad01-44e2-b23c-423711b2db1e",
+                            SecurityStamp = "6688fcf9-cb5e-4cd2-b112-5b1e08cece55",
                             TwoFactorEnabled = false,
-                            UserId = new Guid("a923238c-1b83-41e7-b00f-66edfb33d2dd"),
+                            UserId = new Guid("87bc7717-f196-4d1f-9fbd-628fd7ba5b2d"),
                             UserName = "admin@admin.com"
                         });
                 });
@@ -695,6 +724,25 @@ namespace TreasureCache.Infrastructure.Migrations
                     b.Navigation("ShippingAddress");
                 });
 
+            modelBuilder.Entity("TreasureCache.Core.Entities.OrderItem", b =>
+                {
+                    b.HasOne("TreasureCache.Core.Entities.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TreasureCache.Core.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("TreasureCache.Core.Entities.Product", b =>
                 {
                     b.HasOne("TreasureCache.Core.Entities.Category", "Category")
@@ -728,6 +776,11 @@ namespace TreasureCache.Infrastructure.Migrations
             modelBuilder.Entity("TreasureCache.Core.Entities.Category", b =>
                 {
                     b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("TreasureCache.Core.Entities.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

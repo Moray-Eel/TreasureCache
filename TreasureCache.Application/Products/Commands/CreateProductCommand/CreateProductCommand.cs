@@ -1,5 +1,5 @@
 using TreasureCache.Abstractions.Mediator.Interfaces.Commands;
-using TreasureCache.Application.Files.Dtos;
+using TreasureCache.Application.UserFiles.Dtos;
 
 namespace TreasureCache.Application.Products.Commands.CreateProductCommand;
 

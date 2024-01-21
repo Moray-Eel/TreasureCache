@@ -1,5 +1,5 @@
 using TreasureCache.Abstractions.Mediator.Interfaces.Commands.Handlers;
-using TreasureCache.Application.Files.Services.Interfaces;
+using TreasureCache.Application.UserFiles.Services.Interfaces;
 using TreasureCache.Core.Entities;
 using TreasureCache.Core.Interfaces.Repositories;
 
