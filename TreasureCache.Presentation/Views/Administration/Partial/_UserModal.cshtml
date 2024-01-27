@@ -2,9 +2,9 @@
 @using Azure.Core
 @model TreasureCache.Presentation.ViewModels.Administration.UsersModalViewModel
 
-<div id="updateProductModal" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-1 w-full max-w-2xl h-full md:h-auto bg-gradient-to-br bg-gradient-to-br from-green-400 to-blue-600 rounded-lg">
+<div id="updateProductModal" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-1 w-full max-w-2xl  bg-gradient-to-br from-green-400 to-blue-600 rounded-lg">
     <!-- Modal content -->
-    <div class="relative p-4 bg-white shadow dark:bg-gray-800 sm:p-5">
+    <div class="relative p-4 bg-white shadow dark:bg-gray-800 sm:p-5 xs:w-40">
         <!-- Modal header -->
         <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
@@ -19,7 +19,7 @@
         <form id="updateForm" asp-controller="Users" asp-action="Update">
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <input asp-for="Request.Id" hidden />
-                <div class="sm:col-span-2 sm:row-span-1">
+                <div class="col-span-3 sm:col-span-2 sm:row-span-1">
                     <label asp-for="Request.SelectedRoles" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Roles</label>
                     <select asp-for="Request.SelectedRoles" asp-items="@Model.Roles" multiple="multiple" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mb-0" required>
                     </select>
@@ -27,7 +27,7 @@
                         <span asp-validation-for="Request.SelectedRoles" role="alert"></span>
                     </p>
                 </div>
-                <div class="sm:col-span-2">
+                <div class="col-span-3 sm:col-span-2">
                     <label asp-for="Request.PersonalDiscount" class="block mb-2 text-lg font-sm text-gray-900 dark:text-white">Personal Discount %</label>
                     <input asp-for="Request.PersonalDiscount" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="ex. 19,99" required>
                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">

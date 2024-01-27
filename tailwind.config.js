@@ -17,7 +17,7 @@ module.exports = {
     },
     fontFamily: {
       'body': [
-        'Inter',
+      
         'ui-sans-serif',
         'system-ui',
         '-apple-system',

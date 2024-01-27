@@ -5,12 +5,12 @@
     var totalCount = Model.Products.TotalCount;
 }
 
-<div id="cards-parent-container">
-    <div class="grid gap-8 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full text-gray-50">
+<div id="cards-parent-container" class="flex flex-col justify-content-between">
+    <div class="grid gap-8 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full text-gray-50 min-h-[800px]">
         @foreach (var product in Model.Products.Items)
         {
              
-            <div class="flex flex-col w-[300px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div class="flex flex-col w-[300px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 h-[400px]">
                 <a asp-controller="Products" asp-action="View" asp-route-id="@product.Id" class="flex flex-col grow">
                     <img class="rounded-t-lg w-[100%] h-[250px] mx-auto" src="/@product.ProductFiles.SmallImagePath" alt="product image"/>
                     <div class="grow mt-4 px-5 pb-5 flex flex-col justify-between">

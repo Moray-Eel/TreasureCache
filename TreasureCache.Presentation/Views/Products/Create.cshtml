@@ -1,8 +1,8 @@
 @using Azure.Core
 @model TreasureCache.Presentation.ViewModels.Products.CreateViewModel
 
-<section class="mx-auto w-[50rem] dark:bg-gray-900 rounded-[1rem]">
-    <div class="px-4 mx-auto max-w-2xl py-8 ">
+<section class="mx-auto md:w-[50rem] dark:bg-gray-900 rounded-[1rem]">
+    <div class="px-8 md:px-4 mx-auto max-w-2xl py-8 ">
         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new product</h2>
         <form id="uploadForm" asp-controller="Products" asp-action="Create" method="Post" enctype="multipart/form-data">
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">

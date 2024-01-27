@@ -29,9 +29,9 @@
     </head>
     <body class="flex flex-col bg-slate-500">
         <header>
-            <nav class="bg-white border-gray-200 dark:bg-gray-900">
+            <nav class="bg-white border-gray-200 dark:bg-gray-800">
                 <div
-                    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4"
+                    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-4 xl:mx-auto py-4"
                 >
                     <a
                         class="flex items-center dark:text-white"
@@ -43,7 +43,7 @@
                     <button
                         data-collapse-toggle="navbar-default"
                         type="button"
-                        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         aria-controls="navbar-default"
                         aria-expanded="false"
                     >
@@ -65,35 +65,32 @@
                         </svg>
                     </button>
                     <div
-                        class="hidden w-full md:block md:w-auto"
+                        class="hidden w-full lg:block lg:w-auto"
                         id="navbar-default"
                     >
                         <ul
-                            class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
-                        >
-                            <li class="flex items-center">
+                            class="font-medium flex flex-col p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-800 dark:border-gray-700">
+                            <li class="flex items-center mb-2 lg:mb-0 ">
                                 <a
-                                    class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+                                    class="text-center block py-2 pl-3 pr-4 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white lg:dark:text-blue-500 w-full lg:w-auto"
                                     aria-current="page"
                                     asp-area=""
                                     asp-controller="Home"
-                                    asp-action="Index"
-                                >
+                                    asp-action="Index">
                                     Home
                                 </a>
                             </li>
-                            <li class="flex items-center">
+                            <li class="flex items-center mb-2 lg:mb-0">
                                 <a
-                                    class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+                                    class="text-center block py-2 pl-3 pr-4 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white lg:dark:text-blue-500 w-full lg:w-auto"
                                     aria-current="page"
                                     asp-area=""
                                     asp-controller="Home"
-                                    asp-action="Privacy"
-                                >
+                                    asp-action="Privacy">
                                     Privacy
                                 </a>
                             </li>
-                            <partial name="_loginPartial" />
+                            <partial name="_loginPartial"/>
                         </ul>
                     </div>
                 </div>
@@ -102,9 +99,9 @@
 
         <main class="max-w-screen-xl mx-auto grow flex flex-col py-8" role="main">@RenderBody()</main>
 
-        <footer class="bg-white shadow dark:bg-gray-900">
+        <footer class="bg-white shadow dark:bg-gray-800">
             <div
-                class="w-full mx-auto max-w-screen-xl p-8 md:flex md:items-center md:justify-between "
+                class="w-full mx-auto max-w-screen-xl p-8 flex items-center justify-between "
             >
                 <ul
                     class="flex mx-auto gap-8 text-sm font-medium text-gray-500 dark:text-gray-100 sm:mt-0"

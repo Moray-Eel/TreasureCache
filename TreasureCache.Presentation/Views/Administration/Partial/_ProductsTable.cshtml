@@ -8,42 +8,42 @@
 }
 
 <div id="parent" class="mt-6">
-    <div class=" relative min-h-[40rem] min-h-[720px]">
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="relative  min-h-[720px] mx-2 md:mx-auto">
+        <div class="relative sm:overflow-x-auto shadow-md sm:rounded-lg mx-2 md:mx-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-6 py-3 ">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
                         @nameof(Product.Id)
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
 
                         @nameof(Product.Name)
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
                         @nameof(Product.Description)
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
                         Base Price
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
                         Is Active
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
                         @nameof(Product.Quantity)
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
                         @nameof(Product.Discount)
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
                         Created At
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
                         CategoryId
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="lg:px-6 lg:py-3 md:px-4 md:py-2  px-2 py-1">
                     </th>
                 </tr>
                 </thead>
@@ -51,37 +51,37 @@
                 @foreach (var product in Model.Products.Items)
                 {
                     <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                        <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <th scope="row" class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             @product.Id.ToString()
                         </th>
-                        <td class="px-6 py-2">
+                        <td class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap">
                             @product.Name
                         </td>
-                        <td class="px-6 py-2">
+                        <td class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap">
                             @(product.Description.AsSpan(0, Math.Min(product.Description.Length, 20)).TrimEnd().ToString())...
                         </td>
-                        <td class="px-6 py-2">
+                        <td class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap">
                             @product.BasePrice.ToString()
                         </td>
-                        <td class="px-6 py-2">
+                        <td class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap">
                             @product.IsActive.ToString()
                         </td>
-                        <td class="px-6 py-2">
+                        <td class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap">
                             @product.Count.ToString()
                         </td>
-                        <td class="px-6 py-2">
+                        <td class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap">
                             @product.Discount.ToString()%
                         </td>
-                        <td class="px-6 py-2">
+                        <td class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap">
                             @product.CreatedAt.ToString("g")
                         </td>
-                        <td class="px-6 py-2">
+                        <td class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap">
                             @product.Category.Id.ToString()
                         </td>
-                        <td class="px-6 py-2 ">
+                        <td class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap">
                             <a asp-controller="Products" asp-action="Update" asp-route-id="@product.Id" type="button" class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 my-auto">Edit</a>
                         </td>
-                        <td class="px-6 py-2 ">
+                        <td class="lg:px-6 lg:py-2 md:px-4 md:py-2 px-2 py-1  text-wrap">
                             <button hx-get="ProductModal" hx-vals='{"Id" : "@product.Id.ToString()"}' hx-swap="innerHtml" hx-target="#t-container" type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Delete</button>
                         </td>
                     </tr>
