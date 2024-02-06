@@ -1,6 +1,7 @@
 using TreasureCache.Abstractions.Mediator.Interfaces.Queries.Handlers;
 using TreasureCache.Abstractions.Paging;
 using TreasureCache.Infrastructure.Persistence.Database;
+using TreasureCache.Infrastructure.Queries.Categories.Mappers;
 using TreasureCache.Infrastructure.Queries.Products.Dtos;
 using TreasureCache.Infrastructure.Queries.Products.Mappers;
 
@@ -19,12 +20,16 @@ public class GetProductsPanelHandler : IQueryHandler<GetProductsPanelQuery, Prod
             .Products
             .ProjectToDto();
         
+        var categories = _context.Categories
+            .ProjectToDto()
+            .ToList();
+        
         var pagedProducts = await PagedList<ProductWithCategoryDto>.ToPagedList(
             products, 
             command.Page, 
             command.PageSize,
             cancellationToken);
         
-        return new ProductsPanelResponse(pagedProducts);
+        return new ProductsPanelResponse(pagedProducts, categories);
     }
 }

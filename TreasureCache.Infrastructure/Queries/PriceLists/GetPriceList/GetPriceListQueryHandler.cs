@@ -17,10 +17,11 @@ public class GetPriceListQueryHandler : IQueryHandler<GetPriceListQuery, Stream>
     public async Task<Stream> HandleAsync(GetPriceListQuery query, CancellationToken cancellationToken = default)
     {
         var products = await _context.Products
+            .Where(p=>p.CategoryId == query.CategoryId)
             .ProjectToDto()
             .ToListAsync(cancellationToken);
         
-        var generator = GetCreator(query.documentType).Create();
+        var generator = GetCreator(query.DocumentType).Create();
         return generator.Generate(products);
     }
 

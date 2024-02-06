@@ -21,6 +21,7 @@ public class GetProductCardsHandler : IQueryHandler<GetProductCardsQuery, Produc
         var productDtos = _context
             .Products
             .Where(p => p.IsActive)
+            .OrderByDescending(p => p.CreatedAt)
             .ProjectToDto();
 
         var pagedProducts = await PagedList<ProductWithCategoryDto>

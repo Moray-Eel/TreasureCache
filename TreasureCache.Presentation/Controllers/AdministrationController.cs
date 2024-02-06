@@ -74,7 +74,12 @@ public class AdministrationController : Controller
         var response = await _mediator.SendAsync(new GetProductsPanelQuery(page, pageSize));
         var model = new ProductsPanelViewModel()
         {
-            Products = response.Products
+            Products = response.Products,
+            Categories = response.Categories.Select(c => new SelectListItem
+            {
+                Text = c.Name,
+                Value = c.Id.ToString()
+            }).ToList(),
         };
         
         return Request.IsHtmx() 
@@ -100,10 +105,10 @@ public class AdministrationController : Controller
     }
     
     [HttpGet]
-    public async Task<FileStreamResult> GeneratePriceList(string documentType)
+    public async Task<FileStreamResult> GeneratePriceList(string documentType, int categoryId)
     {
         var response = await _mediator
-            .SendAsync(new GetPriceListQuery(documentType));
+            .SendAsync(new GetPriceListQuery(documentType, categoryId));
         
         return File(response, DocumentMimeType(documentType), DocumentName(documentType));
     }
