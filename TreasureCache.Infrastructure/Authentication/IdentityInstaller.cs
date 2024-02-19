@@ -7,13 +7,14 @@ namespace TreasureCache.Infrastructure.Authentication;
 
 public static class IdentityInstaller
 {
-    public static IServiceCollection AddIdentity(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddIdentity(this IServiceCollection services,
+        IConfiguration configuration)
     {
-        services.AddDefaultIdentity<ApplicationUser>(opt => opt.SignIn.RequireConfirmedAccount = true)
+        services.AddDefaultIdentity<ApplicationUser>(opt =>
+                opt.SignIn.RequireConfirmedAccount = true)
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationContext>();
-            
+
         return services;
     }
-
 }

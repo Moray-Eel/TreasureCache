@@ -10,17 +10,20 @@ namespace TreasureCache.Infrastructure.Queries.PriceLists.GetPriceList;
 public class GetPriceListQueryHandler : IQueryHandler<GetPriceListQuery, Stream>
 {
     private readonly ApplicationContext _context;
+
     public GetPriceListQueryHandler(ApplicationContext context)
     {
         _context = context;
     }
-    public async Task<Stream> HandleAsync(GetPriceListQuery query, CancellationToken cancellationToken = default)
+
+    public async Task<Stream> HandleAsync(GetPriceListQuery query,
+        CancellationToken cancellationToken = default)
     {
         var products = await _context.Products
-            .Where(p=>p.CategoryId == query.CategoryId)
+            .Where(p => p.CategoryId == query.CategoryId)
             .ProjectToDto()
             .ToListAsync(cancellationToken);
-        
+
         var generator = GetCreator(query.DocumentType).Create();
         return generator.Generate(products);
     }

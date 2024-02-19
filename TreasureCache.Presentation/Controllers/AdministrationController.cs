@@ -16,40 +16,38 @@ namespace TreasureCache.Presentation.Controllers;
 [Authorize(Roles = "Admin")]
 public class AdministrationController : Controller
 {
-
     private readonly IMediator _mediator;
 
     public AdministrationController(IMediator mediator)
     {
         _mediator = mediator;
     }
-    
+
     [HttpGet]
     public IActionResult Index()
     {
         return View();
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> UsersPanel(int page = 1, int pageSize = 10)
     {
-    
         var response = await _mediator.SendAsync(new GetUsersPanelQuery(page, pageSize));
         var model = new UsersPanelViewModel()
         {
             Users = response.Users,
         };
-        
-        return Request.IsHtmx() 
-            ? PartialView("Partial/_UsersTable",model) 
-            : View(model); 
+
+        return Request.IsHtmx()
+            ? PartialView("Partial/_UsersTable", model)
+            : View(model);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> UserModal(string id)
     {
         var response = await _mediator.SendAsync(new GetUserModalQuery(id));
-        
+
         var model = new UsersModalViewModel()
         {
             Request = new UpdateUserRequest(
@@ -57,7 +55,7 @@ public class AdministrationController : Controller
                 response.UserRoles.Select(x => x.Id).ToList(),
                 response.User.DomainUser.SignedForNewsletter,
                 response.User.DomainUser.PersonalDiscount
-                ),
+            ),
             Roles = response.Roles.Select(r => new SelectListItem
             {
                 Text = r.Name,
@@ -67,7 +65,7 @@ public class AdministrationController : Controller
 
         return PartialView("Partial/_UserModal", model);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> ProductsPanel(int page = 1, int pageSize = 10)
     {
@@ -81,12 +79,12 @@ public class AdministrationController : Controller
                 Value = c.Id.ToString()
             }).ToList(),
         };
-        
-        return Request.IsHtmx() 
-            ? PartialView("Partial/_ProductsTable",model) 
+
+        return Request.IsHtmx()
+            ? PartialView("Partial/_ProductsTable", model)
             : View(model);
     }
-    
+
     public async Task<IActionResult> ProductModal(int id)
     {
         var response = await _mediator.SendAsync(new GetProductByIdQuery(id));
@@ -103,16 +101,16 @@ public class AdministrationController : Controller
         };
         return PartialView("Partial/_ProductModal", model);
     }
-    
+
     [HttpGet]
     public async Task<FileStreamResult> GeneratePriceList(string documentType, int categoryId)
     {
         var response = await _mediator
             .SendAsync(new GetPriceListQuery(documentType, categoryId));
-        
+
         return File(response, DocumentMimeType(documentType), DocumentName(documentType));
     }
-    
+
     private string DocumentMimeType(string documentType)
     {
         return documentType switch
@@ -122,6 +120,7 @@ public class AdministrationController : Controller
             _ => "application/pdf",
         };
     }
+
     private string DocumentName(string documentType)
     {
         return documentType switch

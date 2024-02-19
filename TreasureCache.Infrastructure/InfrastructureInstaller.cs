@@ -12,7 +12,8 @@ namespace TreasureCache.Infrastructure;
 
 public static class InfrastructureInstaller
 {
-    public static IServiceCollection InstallInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection InstallInfrastructure(this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddPersistence(configuration);
         services.AddIdentity(configuration);
@@ -22,8 +23,8 @@ public static class InfrastructureInstaller
         services.AddTransient<IProductRepository, CachedProductRepository>();
         services.AddTransient<UserRepository>();
         services.AddTransient<IUserRepository, CachedUserRepository>();
-        
-        
+
+
         return services;
     }
 }

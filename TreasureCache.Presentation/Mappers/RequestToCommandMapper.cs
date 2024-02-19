@@ -15,40 +15,42 @@ public static partial class RequestToCommandMapper
     {
         var largeImage = await request.LargeImage.ToFileDto();
         var smallImage = await request.SmallImage.ToFileDto();
-        var userManual = request.UserManual is not null 
-            ? await request.UserManual.ToFileDto() 
+        var userManual = request.UserManual is not null
+            ? await request.UserManual.ToFileDto()
             : null;
-        
-        return new CreateProductCommand(request.Name, request.Description, request.Price, request.Discount, 
-                request.Count, request.IsActive, request.CategoryId, largeImage, 
-                smallImage, userManual);
+
+        return new CreateProductCommand(request.Name, request.Description, request.Price,
+            request.Discount,
+            request.Count, request.IsActive, request.CategoryId, largeImage,
+            smallImage, userManual);
     }
 
     public static async Task<UpdateProductCommand> AsCommand(this UpdateProductRequest request)
     {
         var largeImage = await request.LargeImage.ToFileDto();
         var smallImage = await request.SmallImage.ToFileDto();
-        var userManual = request.UserManual is not null 
-            ? await request.UserManual.ToFileDto() 
+        var userManual = request.UserManual is not null
+            ? await request.UserManual.ToFileDto()
             : null;
-        
-        return new UpdateProductCommand(request.Id, request.Name, request.Description, request.BasePrice, request.Discount, 
-            request.Count, request.IsActive, request.CategoryId, largeImage, 
+
+        return new UpdateProductCommand(request.Id, request.Name, request.Description,
+            request.BasePrice, request.Discount,
+            request.Count, request.IsActive, request.CategoryId, largeImage,
             smallImage, userManual);
     }
 
     public static partial UpdateUserCommand AsCommand(this UpdateUserRequest request);
-    
+
     private static async Task<FileDto> ToFileDto(this IFormFile file)
     {
         using var memoryStream = new MemoryStream();
-        
+
         await file
             .CopyToAsync(memoryStream);
 
         var extension = Path.GetExtension(file.FileName);
         var bytes = memoryStream.ToArray();
-        
+
         return new FileDto()
         {
             Name = file.Name,

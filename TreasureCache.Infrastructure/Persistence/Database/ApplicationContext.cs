@@ -43,7 +43,7 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
             BuildingNumber = "admin",
             ZipCode = "admin",
         };
-        
+
         var domainUser = new DomainUser
         {
             Id = Guid.NewGuid(),
@@ -51,9 +51,9 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
             LastName = "admin",
             PersonalDiscount = 0,
             SignedForNewsletter = false,
-            AddressId = address.Id, 
+            AddressId = address.Id,
         };
-        
+
         var admin = new ApplicationUser
         {
             Id = Guid.NewGuid().ToString(),
@@ -67,10 +67,10 @@ public class ApplicationContext : IdentityDbContext<ApplicationUser, Application
             SecurityStamp = Guid.NewGuid().ToString(),
             ConcurrencyStamp = Guid.NewGuid().ToString(),
         };
-        
-        PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();  
+
+        PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
         admin.PasswordHash = passwordHasher.HashPassword(admin, "Admin123..");
-        
+
         builder.Entity<Address>().HasData(address);
         builder.Entity<DomainUser>().HasData(domainUser);
         builder.Entity<ApplicationUser>().HasData(admin);

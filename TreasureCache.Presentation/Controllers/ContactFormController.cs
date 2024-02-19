@@ -14,7 +14,9 @@ namespace TreasureCache.Presentation.Controllers
         private readonly IMediator _mediator;
         private readonly ApplicationContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        public ContactFormController(IMediator mediator, ApplicationContext context, UserManager<ApplicationUser> userManager)
+
+        public ContactFormController(IMediator mediator, ApplicationContext context,
+            UserManager<ApplicationUser> userManager)
         {
             _mediator = mediator;
             _context = context;
@@ -26,7 +28,7 @@ namespace TreasureCache.Presentation.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Send(ContactFormViewModel viewModel)
         {
@@ -36,17 +38,17 @@ namespace TreasureCache.Presentation.Controllers
             var user = await _context.Users
                 .Include(u => u.User)
                 .FirstAsync(u => u.Id == userId);
-            
+
             var form = new ContactForm
             {
                 Message = viewModel.Message,
                 ContactReason = viewModel.ContactReason,
                 Sender = user.User,
             };
-            
+
             await _context.ContactForms.AddAsync(form);
             await _context.SaveChangesAsync();
-            
+
             TempData["Success"] = "Message sent successfully!";
 
             return RedirectToAction("Index", "Home");

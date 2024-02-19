@@ -9,6 +9,7 @@ namespace TreasureCache.Infrastructure.PriceLists.Generators;
 public class PdfPriceListGenerator : IPriceListGenerator
 {
     public IList<ProductWithCategoryDto> Products { get; set; }
+
     public Stream Generate(IList<ProductWithCategoryDto> products)
     {
         Products = products;
@@ -22,12 +23,12 @@ public class PdfPriceListGenerator : IPriceListGenerator
                 page.Header().Element(Header);
                 page.Content().Element(Content);
                 page.Footer().Element(Footer);
-
             });
         }).GeneratePdf();
-        
+
         return new MemoryStream(pdf);
     }
+
     void Header(IContainer container)
     {
         container.Height(50)
@@ -39,6 +40,7 @@ public class PdfPriceListGenerator : IPriceListGenerator
                     .Bold();
             });
     }
+
     void Content(IContainer container)
     {
         container.PaddingVertical(25).Table(table =>
@@ -51,14 +53,20 @@ public class PdfPriceListGenerator : IPriceListGenerator
                 columns.ConstantColumn(100);
                 columns.ConstantColumn(100);
             });
-        
+
             table.Header(header =>
             {
-                header.Cell().Border(1).PaddingLeft(5).Text(DocumentText.Id).Bold().FontSize(16);;
-                header.Cell().Border(1).PaddingLeft(5).Text(DocumentText.Name).Bold().FontSize(16);;
-                header.Cell().Border(1).PaddingLeft(5).Text(DocumentText.Price).Bold().FontSize(16);;
-                header.Cell().Border(1).PaddingLeft(5).AlignCenter().Text(DocumentText.Discount).Bold().FontSize(16);;
-                header.Cell().Border(1).PaddingLeft(5).AlignCenter().Text(DocumentText.Category).Bold().FontSize(16);
+                header.Cell().Border(1).PaddingLeft(5).Text(DocumentText.Id).Bold().FontSize(16);
+                ;
+                header.Cell().Border(1).PaddingLeft(5).Text(DocumentText.Name).Bold().FontSize(16);
+                ;
+                header.Cell().Border(1).PaddingLeft(5).Text(DocumentText.Price).Bold().FontSize(16);
+                ;
+                header.Cell().Border(1).PaddingLeft(5).AlignCenter().Text(DocumentText.Discount)
+                    .Bold().FontSize(16);
+                ;
+                header.Cell().Border(1).PaddingLeft(5).AlignCenter().Text(DocumentText.Category)
+                    .Bold().FontSize(16);
             });
 
             foreach (var product in Products)
@@ -67,11 +75,12 @@ public class PdfPriceListGenerator : IPriceListGenerator
                 table.Cell().Border(1).PaddingLeft(5).Text($"{product.Name}");
                 table.Cell().Border(1).PaddingLeft(5).Text($"{product.BasePrice}");
                 table.Cell().Border(1).PaddingLeft(5).AlignCenter().Text($"{product.Discount}%");
-                table.Cell().Border(1).PaddingLeft(5).AlignCenter().Text($"{product.Category.Name}");
+                table.Cell().Border(1).PaddingLeft(5).AlignCenter()
+                    .Text($"{product.Category.Name}");
             }
         });
-    
     }
+
     void Footer(IContainer container)
     {
         container.AlignCenter().Text(text =>

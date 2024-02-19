@@ -1,5 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
+
 #nullable disable
 
 using System;
@@ -22,7 +23,8 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
 
-        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<ApplicationUser> userManager,
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _emailSender = emailSender;
@@ -68,7 +70,7 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
                 var callbackUrl = Url.Page(
                     "/Account/ResetPassword",
                     pageHandler: null,
-                    values: new { area = "Identity", code },
+                    values: new {area = "Identity", code},
                     protocol: Request.Scheme);
 
                 await _emailSender.SendEmailAsync(

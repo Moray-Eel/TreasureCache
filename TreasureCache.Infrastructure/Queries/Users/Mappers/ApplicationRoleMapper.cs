@@ -7,5 +7,6 @@ namespace TreasureCache.Infrastructure.Queries.Users.Mappers;
 [Mapper]
 public static partial class ApplicationRoleMapper
 {
-    public static partial IQueryable<ApplicationRoleDto> ProjectToDto(this IQueryable<ApplicationRole> role);
+    public static partial IQueryable<ApplicationRoleDto> ProjectToDto(
+        this IQueryable<ApplicationRole> role);
 }

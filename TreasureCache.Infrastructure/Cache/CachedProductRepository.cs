@@ -26,8 +26,8 @@ public class CachedProductRepository : IProductRepository
 
     public async Task<Product> GetById(int id, CancellationToken cancellationToken = default)
         => await _cache.GetOrCreateAsync(id, entry => _repository
-                .GetById(id, cancellationToken));
-    
+            .GetById(id, cancellationToken));
+
 
     public async Task Remove(Product product, CancellationToken cancellationToken = default)
     {

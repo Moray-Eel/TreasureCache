@@ -7,4 +7,4 @@ public record ApplicationUserDto(
     bool EmailConfirmed,
     string? PhoneNumber,
     DomainUserDto DomainUser
-    );
+);

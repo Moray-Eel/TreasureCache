@@ -11,16 +11,19 @@ namespace TreasureCache.Infrastructure.Queries.Users.GetUsersPanel;
 public class GetUsersPanelHandler : IQueryHandler<GetUsersPanelQuery, UsersPanelResponse>
 {
     private readonly ApplicationContext _context;
+
     public GetUsersPanelHandler(ApplicationContext context)
     {
         _context = context;
     }
-    public async Task<UsersPanelResponse> HandleAsync(GetUsersPanelQuery panelQuery, CancellationToken cancellationToken = default)
+
+    public async Task<UsersPanelResponse> HandleAsync(GetUsersPanelQuery panelQuery,
+        CancellationToken cancellationToken = default)
     {
         var adminId = (await _context.Roles
-            .FirstOrDefaultAsync(x => x.Name == RoleNames.Admin, cancellationToken)
+                .FirstOrDefaultAsync(x => x.Name == RoleNames.Admin, cancellationToken)
             )?.Id ?? throw new NullReferenceException("Admin role not found");
-        
+
         var noAdminUsersIds = _context.UserRoles
             .Where(x => x.RoleId != adminId)
             .Distinct()
@@ -29,7 +32,7 @@ public class GetUsersPanelHandler : IQueryHandler<GetUsersPanelQuery, UsersPanel
         var noAdminUsers = _context.Users
             .Where(x => noAdminUsersIds.Contains(x.Id))
             .ProjectToDto();
-            
+
         var users = await PagedList<ApplicationUserDto>
             .ToPagedList(noAdminUsers, panelQuery.Page, panelQuery.PageSize, cancellationToken);
 

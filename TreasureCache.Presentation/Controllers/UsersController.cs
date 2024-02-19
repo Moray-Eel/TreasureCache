@@ -12,12 +12,13 @@ public class UsersController : Controller
 {
     private readonly IMediator _mediator;
     private readonly IValidator<UpdateUserRequest> _updateRequestValidator;
+
     public UsersController(IMediator mediator, IValidator<UpdateUserRequest> updateRequestValidator)
     {
         _mediator = mediator;
         _updateRequestValidator = updateRequestValidator;
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> Update(UpdateUserRequest request)
     {

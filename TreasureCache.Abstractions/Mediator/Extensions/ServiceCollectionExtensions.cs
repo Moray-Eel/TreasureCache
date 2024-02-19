@@ -12,14 +12,15 @@ public static class MediatorExtensions
 
         //Accepting and applying configuration
         config(mediatorConfig);
-        
-        if(!mediatorConfig.RegisteredAssemblies.Any())
-            throw new ArgumentException("No assemblies found to scan. Provide at least one assembly");
+
+        if (!mediatorConfig.RegisteredAssemblies.Any())
+            throw new ArgumentException(
+                "No assemblies found to scan. Provide at least one assembly");
 
         //Capturing handlers
         services.CaptureHandlers(mediatorConfig);
         services.AddTransient<IMediator, Mediator>();
-        
+
         return services;
     }
 }

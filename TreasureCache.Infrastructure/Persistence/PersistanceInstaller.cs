@@ -7,16 +7,14 @@ namespace TreasureCache.Infrastructure.Persistence;
 
 public static class PersistenceInstaller
 {
-    public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPersistence(this IServiceCollection services,
+        IConfiguration configuration)
     {
         var connectionString = configuration
             .GetConnectionString("DefaultConnection");
-        
-        services.AddDbContext<ApplicationContext>(opt =>
-            {
-                opt.UseNpgsql(connectionString);
-            });
-        
+
+        services.AddDbContext<ApplicationContext>(opt => { opt.UseNpgsql(connectionString); });
+
         return services;
     }
 }

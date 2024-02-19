@@ -4,7 +4,7 @@ using TreasureCache.Core.Entities;
 
 namespace TreasureCache.Infrastructure.Persistence.Configuration;
 
-public class ProductFilesEntityBuilder: IEntityTypeConfiguration<ProductFiles>
+public class ProductFilesEntityBuilder : IEntityTypeConfiguration<ProductFiles>
 {
     public void Configure(EntityTypeBuilder<ProductFiles> productFiles)
     {

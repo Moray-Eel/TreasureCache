@@ -12,18 +12,18 @@ public class ImageProcessor : IImageProcessor
     {
         using MemoryStream stream = new MemoryStream(image.ByteContent);
         using var loadedImage = await Image.LoadAsync(stream);
-        
+
         loadedImage.Mutate(x => x.Resize(width, height));
 
         using MemoryStream outputStream = new MemoryStream();
-        
-        _ = loadedImage.Metadata.DecodedImageFormat ?? throw new NullReferenceException("Image format is null");
-        
+
+        _ = loadedImage.Metadata.DecodedImageFormat ??
+            throw new NullReferenceException("Image format is null");
+
         await loadedImage.SaveAsync(outputStream, loadedImage.Metadata.DecodedImageFormat);
 
         image.ByteContent = outputStream.ToArray();
 
         return image;
     }
-   
 }

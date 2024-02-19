@@ -1,5 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
+
 #nullable disable
 
 using System;
@@ -88,7 +89,9 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100,
+                ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
+                MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -100,65 +103,60 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
             [Required]
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password",
+                ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-            
+
             [Required]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
-            
+
             [Required]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
-            
-            [Required]
-            [Display(Name = "Country")]
-            public string Country { get; set; }
-            
-            [Required]
-            [Display(Name = "City")]
-            public string City { get; set; }
-            
+
+            [Required] [Display(Name = "Country")] public string Country { get; set; }
+
+            [Required] [Display(Name = "City")] public string City { get; set; }
+
             [Required]
             [Display(Name = "Zip Code")]
             public string ZipCode { get; set; }
-            
-            [Required]
-            [Display(Name = "Street")]
-            public string Street { get; set; }
+
+            [Required] [Display(Name = "Street")] public string Street { get; set; }
 
             [Required]
             [Display(Name = "Building Nr")]
             public string BuildingNumber { get; set; }
-            
-            [Display(Name = "Apartment Nr*")]
-            public string? ApartmentNumber { get; set; }
-            
-            [Display(Name = "Phone Number*")]
-            public string? PhoneNumber { get; set; } 
+
+            [Display(Name = "Apartment Nr*")] public string? ApartmentNumber { get; set; }
+
+            [Display(Name = "Phone Number*")] public string? PhoneNumber { get; set; }
         }
 
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins =
+                (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins =
+                (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
                 var domainUser = CreateDomainUser();
-                var address = CreateAddress(Input.Country, Input.City, Input.ZipCode, Input.Street, 
+                var address = CreateAddress(Input.Country, Input.City, Input.ZipCode, Input.Street,
                     Input.BuildingNumber, Input.ApartmentNumber, Input.PhoneNumber);
-                
+
                 domainUser = SetNameCredentials(domainUser, Input.FirstName, Input.LastName);
                 domainUser = SetAddress(domainUser, address);
-                
+
                 user = SetDomainUser(user, domainUser);
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
@@ -167,7 +165,8 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    var identityResult = await _userManager.AddToRoleAsync(user, NormalizedRoleNames.BaseUser);
+                    var identityResult =
+                        await _userManager.AddToRoleAsync(user, NormalizedRoleNames.BaseUser);
 
                     if (identityResult.Succeeded)
                     {
@@ -179,7 +178,11 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
                         var callbackUrl = Url.Page(
                             "/Account/ConfirmEmail",
                             pageHandler: null,
-                            values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                            values: new
+                            {
+                                area = "Identity", userId = userId, code = code,
+                                returnUrl = returnUrl
+                            },
                             protocol: Request.Scheme);
 
                         await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
@@ -187,7 +190,8 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
 
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
                         {
-                            return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                            return RedirectToPage("RegisterConfirmation",
+                                new {email = Input.Email, returnUrl = returnUrl});
                         }
                         else
                         {
@@ -195,11 +199,13 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
                             return LocalRedirect(returnUrl);
                         }
                     }
+
                     foreach (var error in identityResult.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -218,7 +224,8 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                throw new InvalidOperationException(
+                    $"Can't create an instance of '{nameof(ApplicationUser)}'. " +
                     $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
@@ -228,14 +235,16 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
         {
             if (!_userManager.SupportsUserEmail)
             {
-                throw new NotSupportedException("The default UI requires a user store with email support.");
+                throw new NotSupportedException(
+                    "The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<ApplicationUser>)_userStore;
+
+            return (IUserEmailStore<ApplicationUser>) _userStore;
         }
 
         private DomainUser CreateDomainUser()
             => Activator.CreateInstance<DomainUser>();
-        
+
         private DomainUser SetNameCredentials(DomainUser user, string firstName, string lastName)
         {
             user.FirstName = firstName;
@@ -243,14 +252,15 @@ namespace TreasureCache.Presentation.Areas.Identity.Pages.Account
 
             return user;
         }
-        
+
         private DomainUser SetAddress(DomainUser user, Address address)
         {
             user.Address = address;
             return user;
         }
-        
-        private Address CreateAddress(string country, string city, string zipcode, string street, string buildingNumber, string? apartmentNumber, string? phoneNumber)
+
+        private Address CreateAddress(string country, string city, string zipcode, string street,
+            string buildingNumber, string? apartmentNumber, string? phoneNumber)
         {
             return new Address
             {

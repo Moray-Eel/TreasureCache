@@ -9,14 +9,18 @@ public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
 {
     private readonly IProductRepository _productRepository;
     private readonly IFileHandlerService _fileHandlerService;
-    public CreateProductCommandHandler(IProductRepository productRepository, IFileHandlerService fileHandlerService)
+
+    public CreateProductCommandHandler(IProductRepository productRepository,
+        IFileHandlerService fileHandlerService)
     {
         _productRepository = productRepository;
         _fileHandlerService = fileHandlerService;
     }
-    public async Task HandleAsync(CreateProductCommand command, CancellationToken cancellationToken = default)
+
+    public async Task HandleAsync(CreateProductCommand command,
+        CancellationToken cancellationToken = default)
     {
-        var (smallImagePath, largeImagePath, userManualPath) = 
+        var (smallImagePath, largeImagePath, userManualPath) =
             await _fileHandlerService
                 .Handle(command.SmallImage, command.LargeImage, command.UserManual);
 

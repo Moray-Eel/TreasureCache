@@ -13,13 +13,14 @@ namespace TreasureCache.Application;
 
 public static class ApplicationInstaller
 {
-    public static IServiceCollection InstallApplication(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection InstallApplication(this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddTransient<IFileHandlerService, FileHandlerService>();
         services.AddTransient<IFileStorageService, FileStorageService>();
         services.AddTransient<IImageProcessor, ImageProcessor>();
         services.AddTransient<StripePaymentService>();
-        
+
         return services;
     }
 }

@@ -12,7 +12,7 @@ public class CategoryEntityBuilder : IEntityTypeConfiguration<Category>
             .WithMany(e => e.SubCategories)
             .HasForeignKey(e => e.ParentCategoryId)
             .OnDelete(DeleteBehavior.Restrict);
-        
+
         category.Property(b => b.Id).HasIdentityOptions(startValue: 100);
     }
 }

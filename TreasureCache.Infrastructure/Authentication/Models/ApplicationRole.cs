@@ -4,5 +4,4 @@ namespace TreasureCache.Infrastructure.Authentication.Models;
 
 public class ApplicationRole : IdentityRole
 {
-    
 }

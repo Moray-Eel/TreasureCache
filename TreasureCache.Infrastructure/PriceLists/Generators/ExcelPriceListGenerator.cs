@@ -15,18 +15,18 @@ public class ExcelPriceListGenerator : IPriceListGenerator
         Products = products;
         var stream = new MemoryStream();
         using var package = new ExcelPackage(stream);
-        
+
         var worksheet = package.Workbook.Worksheets.Add("Price List");
-        
+
         var all = worksheet.Cells["A:E"];
         all.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-        
+
         Header(worksheet);
         Table(worksheet);
-        
+
         all.AutoFitColumns();
         package.Save();
-        
+
         stream.Position = 0;
         return stream;
     }
@@ -38,7 +38,7 @@ public class ExcelPriceListGenerator : IPriceListGenerator
         header.Merge = true;
         header.Style.Font.Bold = true;
     }
-    
+
     private void HeaderCell(ExcelWorksheet sheet, string cellDiscrimnator, string text)
     {
         var cell = sheet.Cells[cellDiscrimnator];
@@ -48,7 +48,7 @@ public class ExcelPriceListGenerator : IPriceListGenerator
 
     private void Table(ExcelWorksheet sheet)
     {
-        HeaderCell(sheet, "A2", DocumentText.Id);                        
+        HeaderCell(sheet, "A2", DocumentText.Id);
         HeaderCell(sheet, "B2", DocumentText.Name);
         HeaderCell(sheet, "C2", DocumentText.Price);
         HeaderCell(sheet, "D2", DocumentText.Discount);
@@ -59,13 +59,14 @@ public class ExcelPriceListGenerator : IPriceListGenerator
         {
             sheet.Cells[i + row, 1].Value = Products[i].Id.ToString();
             sheet.Cells[i + row, 2].Value = Products[i].Name;
-                
+
             sheet.Cells[i + row, 1].Style.Numberformat.Format = "#,##0"; // Number format
 
-            sheet.Cells[i + row, 3].Value = Products[i].BasePrice.ToString(CultureInfo.InvariantCulture);
+            sheet.Cells[i + row, 3].Value =
+                Products[i].BasePrice.ToString(CultureInfo.InvariantCulture);
             sheet.Cells[i + row, 3].Style.Numberformat.Format = "$#,##0.00"; // Currency format
 
-            sheet.Cells[i + row, 4].Value = ((double)Products[i].Discount).ToString();
+            sheet.Cells[i + row, 4].Value = ((double) Products[i].Discount).ToString();
             sheet.Cells[i + row, 4].Style.Numberformat.Format = "0.00%"; // Percent format
 
             sheet.Cells[i + row, 5].Value = Products[i].Category.Name;

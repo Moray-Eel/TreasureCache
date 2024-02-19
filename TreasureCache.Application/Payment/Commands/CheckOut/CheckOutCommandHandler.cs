@@ -17,8 +17,10 @@ public class CheckOutCommandHandler : ICommandHandler<CheckOutCommand, CheckoutR
     private readonly StripePaymentService _stripePaymentService;
     private readonly IUserRepository _userRepository;
 
-    public CheckOutCommandHandler(IHttpContextAccessor httpContextAccessor, ProductRepository productRepository, 
-        ApplicationContext context, UserManager<ApplicationUser> userManager, StripePaymentService stripePaymentService, IUserRepository userRepository)
+    public CheckOutCommandHandler(IHttpContextAccessor httpContextAccessor,
+        ProductRepository productRepository,
+        ApplicationContext context, UserManager<ApplicationUser> userManager,
+        StripePaymentService stripePaymentService, IUserRepository userRepository)
     {
         _httpContextAccessor = httpContextAccessor;
         _productRepository = productRepository;
@@ -28,20 +30,21 @@ public class CheckOutCommandHandler : ICommandHandler<CheckOutCommand, CheckoutR
         _userRepository = userRepository;
     }
 
-    public async Task<CheckoutResponse> HandleAsync(CheckOutCommand command, CancellationToken cancellationToken = default)
+    public async Task<CheckoutResponse> HandleAsync(CheckOutCommand command,
+        CancellationToken cancellationToken = default)
     {
         var product = await _productRepository.GetById(command.ProductId, cancellationToken)
                       ?? throw new NullReferenceException("Product not found!");
-        
+
         var userId = _userManager
-                         .GetUserId(_httpContextAccessor.HttpContext.User) 
+                         .GetUserId(_httpContextAccessor.HttpContext.User)
                      ?? throw new NullReferenceException("User not found");
 
         var user = await _userRepository
             .GetById(userId, cancellationToken);
-        
-        var session = await _stripePaymentService.
-            ConfigureCheckOutSession(product, command.Quantity, user);
+
+        var session =
+            await _stripePaymentService.ConfigureCheckOutSession(product, command.Quantity, user);
 
         return new CheckoutResponse(session.Url);
     }

@@ -14,7 +14,9 @@ public class GetCategoriesQueryHandler : IQueryHandler<GetCategoriesQuery, List<
     {
         _context = context;
     }
-    public async Task<List<CategoryDto>> HandleAsync(GetCategoriesQuery command, CancellationToken cancellationToken)
+
+    public async Task<List<CategoryDto>> HandleAsync(GetCategoriesQuery command,
+        CancellationToken cancellationToken)
     {
         return await _context.Categories
             .ProjectToDto()

@@ -25,16 +25,16 @@ public class PaymentController : Controller
     {
         var response = await _mediator
             .SendAsync(new CheckOutCommand(productId, quantity));
-        
+
         return Redirect(response.redirectUrl);
     }
-    
+
     public async Task<IActionResult> Success(string session_id)
     {
         await _mediator.SendAsync(new CreateOrderCommand(session_id));
-        
+
         TempData["Success"] = "Order placed successfully!";
-        
+
         return RedirectToAction("Index", "Home");
     }
 

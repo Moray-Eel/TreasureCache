@@ -8,10 +8,12 @@ namespace TreasureCache.Infrastructure.Persistence.Repositories;
 public class ProductRepository : IProductRepository
 {
     private readonly ApplicationContext _context;
+
     public ProductRepository(ApplicationContext context)
     {
         _context = context;
     }
+
     public async Task Add(Product product, CancellationToken cancellationToken = default)
     {
         await _context.Products
@@ -20,9 +22,9 @@ public class ProductRepository : IProductRepository
     }
 
     public async Task<Product> GetById(int id, CancellationToken cancellationToken = default)
-        => await _context.Products.Include(p => p.ProductFiles).
-            FirstAsync(p => p.Id == id, cancellationToken);
-    
+        => await _context.Products.Include(p => p.ProductFiles)
+            .FirstAsync(p => p.Id == id, cancellationToken);
+
     public async Task Remove(Product product, CancellationToken cancellationToken = default)
     {
         _context.Products

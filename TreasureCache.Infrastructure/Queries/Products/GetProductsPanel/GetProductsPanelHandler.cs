@@ -10,26 +10,29 @@ namespace TreasureCache.Infrastructure.Queries.Products.GetProductsPanel;
 public class GetProductsPanelHandler : IQueryHandler<GetProductsPanelQuery, ProductsPanelResponse>
 {
     private readonly ApplicationContext _context;
+
     public GetProductsPanelHandler(ApplicationContext context)
     {
         _context = context;
     }
-    public async Task<ProductsPanelResponse> HandleAsync(GetProductsPanelQuery command, CancellationToken cancellationToken = default)
+
+    public async Task<ProductsPanelResponse> HandleAsync(GetProductsPanelQuery command,
+        CancellationToken cancellationToken = default)
     {
         var products = _context
             .Products
             .ProjectToDto();
-        
+
         var categories = _context.Categories
             .ProjectToDto()
             .ToList();
-        
+
         var pagedProducts = await PagedList<ProductWithCategoryDto>.ToPagedList(
-            products, 
-            command.Page, 
+            products,
+            command.Page,
             command.PageSize,
             cancellationToken);
-        
+
         return new ProductsPanelResponse(pagedProducts, categories);
     }
 }

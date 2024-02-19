@@ -7,7 +7,8 @@ public class MediatorAssemblyConfigurator
 {
     public Type DefaultImplementationType = typeof(Mediator);
     public ServiceLifetime Lifetime { get; set; } = ServiceLifetime.Transient;
-    private Assembly[] _registeredAssemblies; 
+    private Assembly[] _registeredAssemblies;
+
     public Assembly[] RegisteredAssemblies
     {
         get => _registeredAssemblies ?? throw new ArgumentNullException();

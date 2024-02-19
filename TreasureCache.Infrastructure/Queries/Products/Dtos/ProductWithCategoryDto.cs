@@ -3,13 +3,13 @@ using TreasureCache.Infrastructure.Queries.Categories.Dtos;
 namespace TreasureCache.Infrastructure.Queries.Products.Dtos;
 
 public record ProductWithCategoryDto(
-    int Id, 
-    string Name, 
+    int Id,
+    string Name,
     string Description,
-    decimal BasePrice, 
-    int Discount, 
-    int Count, 
+    decimal BasePrice,
+    int Discount,
+    int Count,
     DateTimeOffset CreatedAt,
-    bool IsActive, 
+    bool IsActive,
     ProductFilesDto ProductFiles,
     CategoryDto Category);

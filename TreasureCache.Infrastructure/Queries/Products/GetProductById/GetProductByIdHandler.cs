@@ -16,11 +16,12 @@ public class GetProductByIdHandler : IQueryHandler<GetProductByIdQuery, ProductD
         _repository = repository;
     }
 
-    public async Task<ProductDto> HandleAsync(GetProductByIdQuery query, CancellationToken cancellationToken = default)
+    public async Task<ProductDto> HandleAsync(GetProductByIdQuery query,
+        CancellationToken cancellationToken = default)
     {
-        var product = await _repository.GetById(query.ProductId, cancellationToken) 
+        var product = await _repository.GetById(query.ProductId, cancellationToken)
                       ?? throw new NullReferenceException("Product not found");
-        
+
         return product
             .ProjectToDto();
     }

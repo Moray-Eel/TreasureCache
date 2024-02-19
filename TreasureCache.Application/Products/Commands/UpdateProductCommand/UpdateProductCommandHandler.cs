@@ -10,20 +10,24 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand>
 {
     private readonly IProductRepository _productRepository;
     private readonly IFileHandlerService _fileHandlerService;
-    public UpdateProductCommandHandler(IProductRepository productRepository, IFileHandlerService fileHandlerService)
+
+    public UpdateProductCommandHandler(IProductRepository productRepository,
+        IFileHandlerService fileHandlerService)
     {
         _productRepository = productRepository;
         _fileHandlerService = fileHandlerService;
     }
-    public async Task HandleAsync(UpdateProductCommand command, CancellationToken cancellationToken = default)
+
+    public async Task HandleAsync(UpdateProductCommand command,
+        CancellationToken cancellationToken = default)
     {
-        var (smallImagePath, largeImagePath, userManualPath) = 
+        var (smallImagePath, largeImagePath, userManualPath) =
             await _fileHandlerService
                 .Handle(command.SmallImage, command.LargeImage, command.UserManual);
-        
+
         var product = await _productRepository
             .GetById(command.Id, cancellationToken);
-        
+
         product.Name = command.Name;
         product.Description = command.Description;
         product.IsActive = command.IsActive;
@@ -34,8 +38,8 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand>
         product.ProductFiles.SmallImagePath = smallImagePath;
         product.ProductFiles.LargeImagePath = largeImagePath;
         product.ProductFiles.UserManualPath = userManualPath;
-        
-        await _productRepository.Update(product, 
+
+        await _productRepository.Update(product,
             cancellationToken);
     }
 }

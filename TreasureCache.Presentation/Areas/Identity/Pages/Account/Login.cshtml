@@ -1,15 +1,13 @@
 ﻿@page
-@model LoginModel 
+@model LoginModel
 @{ ViewData["Title"] = "Sign in to your account"; }
 
 <div class="my-auto mx-auto px-6 py-8 lg:py-0 h-full">
     <div
-        class="w-[28rem] bg-white rounded-lg shadow dark:border w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700 mx-auto "
-    >
+        class="w-[28rem] bg-white rounded-lg shadow dark:border w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700 mx-auto ">
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1
-                class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-3xl dark:text-white"
-            >
+                class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-3xl dark:text-white">
                 @ViewData["Title"]
             </h1>
             <form
@@ -36,7 +34,8 @@
                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
                         <span
                             asp-validation-for="Input.Email"
-                            role="alert"></span>
+                            role="alert">
+                        </span>
                     </p>
                 </div>
                 <div>
@@ -55,7 +54,8 @@
                     <p class="mt-2 text-xs text-red-600 dark:text-red-400">
                         <span
                             asp-validation-for="Input.Password"
-                            role="alert"></span>
+                            role="alert">
+                        </span>
                     </p>
                 </div>
                 <div class="flex items-center justify-between">
@@ -68,7 +68,8 @@
                         <div class="ml-3 text-sm">
                             <label
                                 asp-for="Input.RememberMe"
-                                class="text-gray-500 dark:text-gray-300"></label>
+                                class="text-gray-500 dark:text-gray-300">
+                            </label>
                         </div>
                     </div>
                     <a
@@ -154,5 +155,5 @@
 </div>*@
 
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

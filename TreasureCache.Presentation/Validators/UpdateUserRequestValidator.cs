@@ -11,12 +11,11 @@ public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
             .Cascade(CascadeMode.Stop)
             .GreaterThan(0)
             .LessThan(80);
-        
+
         RuleFor(x => x.SelectedRoles)
             .NotEmpty();
 
         RuleFor(x => x.SignedUpForNewsletter)
             .NotNull();
     }
-
 }

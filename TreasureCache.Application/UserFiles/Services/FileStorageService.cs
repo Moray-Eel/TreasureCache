@@ -13,18 +13,19 @@ public class FileStorageService : IFileStorageService
     {
         _env = webHostEnvironment;
     }
+
     public async Task<string> GetPathAndWrite(FileDto file)
     {
         var rootDirectory = _env.WebRootPath;
         var directory = file.FileType == FileType.Image ? FilePaths.Image : FilePaths.Document;
-        
+
         var relativePath = Path.Combine(directory, GenerateSecurePath(file.Extension));
         var path = Path.Combine(rootDirectory, relativePath);
         await File.WriteAllBytesAsync(path, file.ByteContent);
-        
+
         return relativePath;
     }
-    
+
     private static string GenerateSecurePath(string extension)
     {
         var secureSignature = Guid.NewGuid().ToString();

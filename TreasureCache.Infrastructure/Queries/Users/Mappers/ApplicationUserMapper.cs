@@ -19,9 +19,9 @@ public static class ApplicationUserMapper
                 u.User.LastName,
                 u.User.PersonalDiscount,
                 u.User.SignedForNewsletter
-                )
+            )
         ));
-    
+
     public static ApplicationUserDto ProjectToDto(
         this ApplicationUser user)
         => new ApplicationUserDto(

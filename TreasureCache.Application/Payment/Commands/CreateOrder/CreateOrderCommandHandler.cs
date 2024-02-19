@@ -19,8 +19,10 @@ public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand>
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly StripePaymentService _stripePaymentService;
 
-    public CreateOrderCommandHandler(IHttpContextAccessor httpContextAccessor, ProductRepository productRepository, 
-        ApplicationContext context, UserManager<ApplicationUser> userManager, StripePaymentService stripePaymentService)
+    public CreateOrderCommandHandler(IHttpContextAccessor httpContextAccessor,
+        ProductRepository productRepository,
+        ApplicationContext context, UserManager<ApplicationUser> userManager,
+        StripePaymentService stripePaymentService)
     {
         _httpContextAccessor = httpContextAccessor;
         _productRepository = productRepository;
@@ -28,15 +30,17 @@ public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand>
         _userManager = userManager;
         _stripePaymentService = stripePaymentService;
     }
-    public async Task HandleAsync(CreateOrderCommand command, CancellationToken cancellationToken = default)
+
+    public async Task HandleAsync(CreateOrderCommand command,
+        CancellationToken cancellationToken = default)
     {
         var sesionInfo = await _stripePaymentService
             .GetSessionInfo(command.sessionId);
-        
+
         var user = await _context.DomainUsers
             .Include(u => u.Address)
             .FirstAsync(u => u.Id == sesionInfo.UserId, cancellationToken);
-        
+
         var order = new Order()
         {
             Buyer = user,
@@ -51,7 +55,6 @@ public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand>
                     AggregatePrice = sesionInfo.TotalPrice
                 }
             },
-            
         };
         await _context.Orders.AddAsync(order, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);

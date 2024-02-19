@@ -48,21 +48,22 @@ public class CreateProductRequestValidator : AbstractValidator<CreateProductRequ
             .When(x => x.UserManual is not null)
             .WithMessage("User manual must be a pdf file");
     }
+
     private bool BeAValidImage(IFormFile file)
     {
         string extension = Path
             .GetExtension(file.FileName);
-        string[] allowedExtensions = { ".jpg", ".png" };
+        string[] allowedExtensions = {".jpg", ".png"};
 
         return allowedExtensions
             .Contains(extension);
     }
-    
+
     private bool BeAValidManual(IFormFile file)
     {
         string extension = Path
             .GetExtension(file.FileName);
-        string[] allowedExtensions = { ".pdf" };
+        string[] allowedExtensions = {".pdf"};
 
         return allowedExtensions
             .Contains(extension);

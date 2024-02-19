@@ -7,10 +7,10 @@
 
 <div id="cards-parent-container" class="flex flex-col justify-content-between">
     <div class="grid gap-8 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full text-gray-50 min-h-[800px]">
-        @for(int i = 0; i < Model.Products.Items.Count ; i++)
+        @for (int i = 0; i < Model.Products.Items.Count; i++)
         {
-            var product = Model.Products.Items[i]; 
-            
+            var product = Model.Products.Items[i];
+
             <div class="flex flex-col w-[300px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 h-[400px]">
                 <a asp-controller="Products" asp-action="View" asp-route-id="@product.Id" class="flex flex-col grow">
                     <img class="rounded-t-lg w-[100%] h-[250px] mx-auto" src="/@product.ProductFiles.SmallImagePath" alt="product image"/>
@@ -25,7 +25,7 @@
                                 @if (product.Discount > 0)
                                 {
                                     <span class="text-sm block line-through">@product.BasePrice</span>
-                                    <span class="text-2xl block font-semibold">@Math.Round(product.BasePrice * ((1 - ((decimal)product.Discount / 100))), 2)</span>
+                                    <span class="text-2xl block font-semibold">@Math.Round(product.BasePrice * ((1 - ((decimal) product.Discount / 100))), 2)</span>
                                 }
                                 else
                                 {
@@ -34,21 +34,21 @@
                             </div>
                             <div class="flex grow justify-end items-end">
                                 <div>
-                                    
-                                @if (i < 10)
-                                {
-                                    <span class=" bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-cyan-900 dark:text-cyan-300">New</span>
-                                }
-                                @if (product.Discount > 0)
-                                {
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Discount</span>
-                                }
+
+                                    @if (i < 10)
+                                    {
+                                        <span class=" bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-cyan-900 dark:text-cyan-300">New</span>
+                                    }
+                                    @if (product.Discount > 0)
+                                    {
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Discount</span>
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </a>
-             </div>
+                </a>
+            </div>
         }
     </div>
     <div class="flex flex-col items-center mt-8">

@@ -59,7 +59,6 @@ public class StripePaymentService
                 {"ProductId", product.Id.ToString()},
                 {"Quantity", quantity.ToString()},
                 {"UserId", user.User.Id.ToString()}
-
             },
         };
         var service = new SessionService();
@@ -71,7 +70,7 @@ public class StripePaymentService
         var sessionService = new SessionService();
         var session = await sessionService.GetAsync(session_id);
         var metadata = session.Metadata;
-        
+
         var userId = Guid.Parse(metadata["UserId"]);
         var quantity = int.Parse(metadata["Quantity"]);
         var productId = int.Parse(metadata["ProductId"]);

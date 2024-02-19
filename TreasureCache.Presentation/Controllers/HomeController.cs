@@ -23,11 +23,11 @@ public class HomeController : Controller
     {
         var productResponse = await _mediator
             .SendAsync(new GetProductCardsQuery(page, pageSize));
-        
-        var model = new ProductCardsViewModel { Products = productResponse.Products };
-        
-        return Request.IsHtmx() 
-            ? PartialView("Partial/_ProductCards", model) 
+
+        var model = new ProductCardsViewModel {Products = productResponse.Products};
+
+        return Request.IsHtmx()
+            ? PartialView("Partial/_ProductCards", model)
             : View(model);
     }
 

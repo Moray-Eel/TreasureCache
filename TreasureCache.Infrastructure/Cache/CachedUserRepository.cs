@@ -15,10 +15,11 @@ public class CachedUserRepository : IUserRepository
         _cache = cache;
     }
 
-    public async Task<ApplicationUser> GetById(string id, CancellationToken cancellationToken = default)
+    public async Task<ApplicationUser> GetById(string id,
+        CancellationToken cancellationToken = default)
         => await _cache.GetOrCreateAsync(id, entry => _repository
             .GetById(id, cancellationToken));
-    
+
 
     public async Task Update(ApplicationUser user, CancellationToken cancellationToken = default)
     {
