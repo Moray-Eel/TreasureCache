@@ -1,0 +1,54 @@
+@using Microsoft.AspNetCore.Identity
+@using TreasureCache.Infrastructure.Authentication.Constants
+@using TreasureCache.Infrastructure.Authentication.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @*<li class="flex items-center">
+        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+    </li>*@
+
+    @if (!User.IsInRole(RoleNames.Admin))
+    {
+        <li class="flex items-center mb-2 lg:mb-0">
+            <a
+                class="text-center block py-2 pl-3 pr-4 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white lg:dark:text-blue-500 w-full lg:w-auto"
+                aria-current="page"
+                id="manage"
+                asp-area="Identity"
+                asp-page="/Account/Manage/Index">
+                Manage account
+            </a>
+        </li>
+    }
+
+    @if (User.IsInRole(RoleNames.Admin))
+    {
+        <li class="flex items-center mb-2 lg:mb-0">
+            <a
+                class="text-center block py-2 pl-3 pr-4 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white lg:dark:text-blue-500 w-full lg:w-auto"
+                aria-current="page"
+                asp-controller="Administration"
+                asp-action="Index">
+                Admin Panel
+            </a>
+        </li>
+    }
+
+    <li class="flex items-center mb-2 lg:mb-0">
+        <form id="logoutForm" class="w-full" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})">
+            <button id="logout" type="submit" class="lg:text-sm w-full lg:px-4 text-white-400 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 rounded-lg px-2 py-2.5 text-center">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="flex items-center mb-2 lg:mb-0 ">
+        <a class="lg:text-sm w-full lg:w-[5.5rem] text-white-400 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 rounded-lg px-2 py-2.5 text-center" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="flex items-center">
+        <a class="lg:text-sm w-full lg:w-[5.5rem] text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 rounded-lg px-2 py-2.5 text-center" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+}

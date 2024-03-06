@@ -1,0 +1,29 @@
+@using TreasureCache.Infrastructure.Authentication.Models
+@inject SignInManager<ApplicationUser> SignInManager;
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+<ul class="flex flex-col">
+    <li class="nav-item">
+        <a class="nav-link font-semibold @ManageNavPages.IndexNavClass(ViewContext) block py-2 px-4 text-white hover:bg-gray-700 rounded-lg" id="profile" asp-page="./Index">Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-semibold  @ManageNavPages.EmailNavClass(ViewContext) block py-2 px-4 text-white hover:bg-gray-700 rounded-lg" id="email" asp-page="./Email">Email</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-semibold  @ManageNavPages.ChangePasswordNavClass(ViewContext) block py-2 px-4 text-white hover:bg-gray-700 rounded-lg" id="change-password" asp-page="./ChangePassword">Password</a>
+    </li>
+    @if (hasExternalLogins)
+    {
+        <li id="external-logins" class="nav-item">
+            <a id="external-login" class="nav-link font-semibold @ManageNavPages.ExternalLoginsNavClass(ViewContext) block py-2 px-4 text-white hover:bg-gray-700 rounded-lg" asp-page="./ExternalLogins">External logins</a>
+        </li>
+    }
+    <li class="nav-item">
+        <a class="nav-link font-semibold @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext) block py-2 px-4 text-white hover:bg-gray-700 rounded-lg" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-semibold @ManageNavPages.PersonalDataNavClass(ViewContext) block py-2 px-4 text-white hover:bg-gray-700 rounded-lg" id="personal-data" asp-page="./PersonalData">Personal data</a>
+    </li>
+</ul>

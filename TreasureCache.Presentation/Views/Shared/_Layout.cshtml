@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - TreasureCache.Presentation</title>
+    <link
+        rel="stylesheet"
+        href="~/css/output.css"
+        asp-append-version="true"/>
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css"
+        rel="stylesheet"/>
+    <link
+        rel="stylesheet"
+        href="~/css/site.css"
+        asp-append-version="true"/>
+    <link
+        rel="stylesheet"
+        href="~/css/toastr.min.css"
+        asp-append-version="true"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+</head>
+<body class="flex flex-col bg-slate-500">
+<header>
+    <nav class="bg-white border-gray-200 dark:bg-gray-800">
+        <div
+            class="max-w-screen-xl flex flex-wrap items-center justify-between mx-4 xl:mx-auto py-4">
+            <a
+                class="flex items-center dark:text-white"
+                asp-controller="Home"
+                asp-action="Index">
+                <img src="~/assets/logo.png" class="w-96" alt="logo"/>
+            </a>
+            <button
+                data-collapse-toggle="navbar-default"
+                type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-default"
+                aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg
+                    class="w-5 h-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 17 14">
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15"/>
+                </svg>
+            </button>
+            <div
+                class="hidden w-full lg:block lg:w-auto"
+                id="navbar-default">
+                <ul
+                    class="font-medium flex flex-col p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-800 dark:border-gray-700">
+                    <li class="flex items-center mb-2 lg:mb-0 ">
+                        <a
+                            class="text-center block py-2 pl-3 pr-4 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white lg:dark:text-blue-500 w-full lg:w-auto"
+                            aria-current="page"
+                            asp-area=""
+                            asp-controller="Home"
+                            asp-action="Index">
+                            Home
+                        </a>
+                    </li>
+                    <li class="flex items-center mb-2 lg:mb-0">
+                        <a
+                            class="text-center block py-2 pl-3 pr-4 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white lg:dark:text-blue-500 w-full lg:w-auto"
+                            aria-current="page"
+                            asp-area=""
+                            asp-controller="Home"
+                            asp-action="Privacy">
+                            Privacy
+                        </a>
+                    </li>
+                    <partial name="_loginPartial"/>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="max-w-screen-xl mx-auto grow flex flex-col py-8" role="main">@RenderBody()</main>
+
+<footer class="bg-white shadow dark:bg-gray-800">
+    <div
+        class="w-full mx-auto max-w-screen-xl p-8 flex items-center justify-between ">
+        <ul
+            class="flex mx-auto gap-8 text-sm font-medium text-gray-500 dark:text-gray-100 sm:mt-0">
+            <li>
+                <a href="#" class="mr-4 hover:underline md:mr-6">
+                    About
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Home" asp-action="Index" class="mr-4 hover:underline md:mr-6">
+                    Privacy Policy
+                </a>
+            </li>
+            <li>
+                <a asp-controller="ContactForm" asp-action="Index" class="hover:underline">Contact</a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/htmx.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<partial name="_toastr"/>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

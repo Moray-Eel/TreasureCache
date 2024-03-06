@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureCache.Presentation", "TreasureCache.Presentation\TreasureCache.Presentation.csproj", "{64F3EE34-EC80-4B8E-9401-6E9BA16C7218}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureCache.Abstractions", "TreasureCache.Abstractions\TreasureCache.Abstractions.csproj", "{ED508B03-D076-44ED-B6AD-C4B1CF48D5F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureCache.Application", "TreasureCache.Application\TreasureCache.Application.csproj", "{D023ADCF-CDE4-4060-B4B6-472004C98988}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureCache.Infrastructure", "TreasureCache.Infrastructure\TreasureCache.Infrastructure.csproj", "{A46D2582-5567-4C35-95F2-2C74EF5B1284}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureCache.Core", "TreasureCache.Core\TreasureCache.Core.csproj", "{A12F81C6-8575-415D-ACC6-26DBAF06EB4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreasureCache.Tests.Integration", "TreasureCache.Tests.Integration\TreasureCache.Tests.Integration.csproj", "{D42A7938-3F23-479C-B061-8B99569C6FB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64F3EE34-EC80-4B8E-9401-6E9BA16C7218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F3EE34-EC80-4B8E-9401-6E9BA16C7218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F3EE34-EC80-4B8E-9401-6E9BA16C7218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F3EE34-EC80-4B8E-9401-6E9BA16C7218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED508B03-D076-44ED-B6AD-C4B1CF48D5F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED508B03-D076-44ED-B6AD-C4B1CF48D5F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED508B03-D076-44ED-B6AD-C4B1CF48D5F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED508B03-D076-44ED-B6AD-C4B1CF48D5F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D023ADCF-CDE4-4060-B4B6-472004C98988}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D023ADCF-CDE4-4060-B4B6-472004C98988}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D023ADCF-CDE4-4060-B4B6-472004C98988}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D023ADCF-CDE4-4060-B4B6-472004C98988}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A46D2582-5567-4C35-95F2-2C74EF5B1284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A46D2582-5567-4C35-95F2-2C74EF5B1284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A46D2582-5567-4C35-95F2-2C74EF5B1284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A46D2582-5567-4C35-95F2-2C74EF5B1284}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A12F81C6-8575-415D-ACC6-26DBAF06EB4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A12F81C6-8575-415D-ACC6-26DBAF06EB4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A12F81C6-8575-415D-ACC6-26DBAF06EB4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A12F81C6-8575-415D-ACC6-26DBAF06EB4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D42A7938-3F23-479C-B061-8B99569C6FB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D42A7938-3F23-479C-B061-8B99569C6FB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D42A7938-3F23-479C-B061-8B99569C6FB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D42A7938-3F23-479C-B061-8B99569C6FB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
